@@ -2,6 +2,9 @@ import requests as con
 import json
 import time
 
+''' The purpose of this script is to take a list of Steam 
+	appIDs and then query the Steam News API for the most up to date articles '''
+
 app_id_list = ['1592670', '976590']
 game_name_list = ['Unknown Title', 'Bus Simulator'] #TODO: Get game name from valve api 
 
