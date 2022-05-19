@@ -1,5 +1,4 @@
 import requests as con
-from numpy import array as np
 import json
 import time
 
