@@ -79,6 +79,8 @@ class Player:
             self.cur_stamina -= amount
         elif direction == 1:
             self.cur_stamina += amount
+        else:
+            pass
              
     def alter_health(self, amount, direction):
         if direction == 0:
@@ -89,9 +91,9 @@ class Player:
             pass
         
     def alter_mana(self, amount, direction):
-        if amount < 0 and direction == 0:
+        if direction == 0:
             self.cur_mana -= amount
-        elif amount > 0 and direction == 1:
+        elif direction == 1:
             self.cur_mana += amount
         else:
             pass
