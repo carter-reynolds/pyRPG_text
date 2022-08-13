@@ -1,6 +1,7 @@
 #pyRPG v2
 #Carter Reynolds
 
+from unicodedata import numeric
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
 from classes.Player import Player
@@ -8,6 +9,7 @@ from dictionaries.world import zonemap_dict, solved_places
 import sys
 import time
 import random as rand
+import re
 
 def title_screen(): # Load title screen
     util.clear_term(0)
@@ -20,11 +22,8 @@ def help_menu():
     title_screen_selections()
         
 def title_screen_selections(): 
-    
     while True:
-        
         option = input('> ')
-         
         if option == '1':
             setup_game()
             verified = True
@@ -36,36 +35,29 @@ def title_screen_selections():
             continue
         
 def setup_game():
-    
     util.clear_term(0)
     
     #### PLAYER NAME SETUP #####
-    
     is_named = False
     role = 'null'
     
-    util.scroll_text("What is your name?\n", 0.05)
-    name = input('> ')
-    
     while is_named == False:
-        if name == '':
-            util.scroll_text("What is your name?\n", 0.05)
-            name = input('> ')
-            continue
-        elif name != '':
-            player = Player(name, role)
+        util.scroll_text("What is your name?\n", 0.05)
+        name = input('> ')
+        name_clean = re.sub(r'[^a-zA-Z]', '', name)
+        if name_clean != '':
+            player = Player(name_clean, role)
             is_named = True
             break
-        
+        elif name_clean == '':
+            continue
     util.clear_term(0)
     
     #### ROLE ASSIGNMENT ####
-    
     ask_role = """Please choose one of the following roles:
 1. Warrior
 2. Mage
 """
-
     util.scroll_text(ask_role, 0.05)
     role_choice = input('> ')
     util.clear_term(0)
