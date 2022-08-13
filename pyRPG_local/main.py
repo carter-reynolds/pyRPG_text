@@ -1,7 +1,6 @@
 #pyRPG v2
 #Carter Reynolds
 
-from unicodedata import numeric
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
 from classes.Player import Player
