@@ -15,7 +15,6 @@ def title_screen(): # Load title screen
     title_screen_selections()
         
 def help_menu():
-    
     util.clear_term(0)   
     text.display_menu(menu='help')
     title_screen_selections()
@@ -68,9 +67,7 @@ def setup_game():
 """
 
     util.scroll_text(ask_role, 0.05)
-
     role_choice = input('> ')
-    
     util.clear_term(0)
 
     while True:
