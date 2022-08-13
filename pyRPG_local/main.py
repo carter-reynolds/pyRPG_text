@@ -40,9 +40,8 @@ def setup_game():
     
     util.clear_term(0)
     
-    
     #### PLAYER NAME SETUP #####
-
+    
     is_named = False
     role = 'null'
     
@@ -58,9 +57,8 @@ def setup_game():
             player = Player(name, role)
             is_named = True
             break
-    
+        
     util.clear_term(0)
-    
     
     #### ROLE ASSIGNMENT ####
     
@@ -68,7 +66,7 @@ def setup_game():
 1. Warrior
 2. Mage
 """
-    
+
     util.scroll_text(ask_role, 0.05)
 
     role_choice = input('> ')
@@ -99,13 +97,9 @@ def setup_game():
             role_choice = input('> ')
             continue
     
-    
     util.clear_term(0) 
-     
     text.welcome_speech()
-    
-    util.clear_term(0.95) 
-               
+    util.clear_term(0.95)           
     main_game_loop(player)
             
 def prompt(player):
