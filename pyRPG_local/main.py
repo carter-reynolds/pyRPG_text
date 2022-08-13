@@ -9,7 +9,7 @@ import sys
 import time
 import random as rand
 
-def title_screen():
+def title_screen(): # Load title screen
     util.clear_term(0)
     text.display_menu(menu='main')
     title_screen_selections()
