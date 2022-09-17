@@ -25,11 +25,13 @@ goblin_names = {
 }
 
 undead_names = {
-    "The Chilled Unliving",
-    "The Musty Undead",
-    "The Boundless Army"
+    0: "The Chilled Unliving",
+    1: "The Musty Undead",
+    2: "The Boundless Army"
 }
 
-big_spider_names = {
-    "Spider"
+creature_names = {
+    0: "Spider",
+    1: "Big Spider",
+    2: "Mythical Spider"
 }

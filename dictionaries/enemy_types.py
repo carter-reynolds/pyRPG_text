@@ -5,7 +5,9 @@ Define Enemy Configurations
 # Set up types of enemies we'll encounter
 types = {
     0: "Bandit",
-    1: "Goblin"
+    1: "Goblin",
+    2: "Undead",
+    3: "Creature"
 }
 
 # 4 Enemy Levels, each can have a different adjective associates

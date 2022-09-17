@@ -1,5 +1,6 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
+from classes.Enemies import Enemy as mob
 import setup
 import sys
 
@@ -21,8 +22,6 @@ def title_screen_selections():
         elif option == '2':
             help_menu()
         elif option == '3':
-            pass
-        elif option == '4':
             sys.exit()   
         else:
             continue
