@@ -14,6 +14,7 @@ class Enemy:
         self.loot = []      # Loot they would drop, if any, will likely be randomly assigned
         self.weapon = ''    # Weapon they are using - should contribute to damage
         self.effect = []    # Random effect
+
         
         
     def rand_enemy_level(): # Returns a random level
@@ -55,5 +56,3 @@ class Enemy:
             Enemy.health = 15
             Enemy.defense = 2
             Enemy.attack = 5
-        
-        
