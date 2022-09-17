@@ -2,3 +2,12 @@ pyRPG_local/classes/__pycache__/Player.cpython-310.pyc
 pyRPG_local/classes/__pycache__/Text.cpython-310.pyc
 pyRPG_local/classes/__pycache__/Utility.cpython-310.pyc
 pyRPG_local/dictionaries/__pycache__/world.cpython-310.pyc
+__pycache__/*.pyc
+__pycache__/player_action.cpython-310.pyc
+classes/__pycache__/Text.cpython-310.pyc
+classes/__pycache__/Enemies.cpython-310.pyc
+classes/__pycache__/Player.cpython-310.pyc
+classes/__pycache__/Utility.cpython-310.pyc
+dictionaries/__pycache__/enemy_names.cpython-310.pyc
+dictionaries/__pycache__/enemy_types.cpython-310.pyc
+dictionaries/__pycache__/world.cpython-310.pyc
