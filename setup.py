@@ -3,6 +3,7 @@ from classes.Utility import Utilities as util
 from classes.Player import Player
 import re
 import player_action as action
+import textwrap
 
 
 def main_game_loop(player):
@@ -29,10 +30,13 @@ def game():
     util.clear_term(0)
     
     #### ROLE ASSIGNMENT ####
-    ask_role = """Please choose one of the following roles:
-1. Warrior
-2. Mage
-"""
+    ask_role = """
+                Please choose one of the following roles: 
+                1. Warrior
+                2. Mage
+                """
+    ask_role = textwrap.dedent(ask_role)
+    
     util.scroll_text(ask_role, 0.05)
     role_choice = input('> ')
     util.clear_term(0)

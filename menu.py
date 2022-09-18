@@ -4,6 +4,7 @@ from classes.Enemies import Enemy
 
 import setup
 import sys
+from termcolor import colored
 
 
 
@@ -16,8 +17,6 @@ def display(): # Load title screen
     
     while MENU:
         
-        MENU = False
-        
         option = input('> ')
         
         if option == '1':
@@ -26,8 +25,30 @@ def display(): # Load title screen
             help_menu()
         elif option == '3':
             return sys.exit()
+        
+        # Lazy debug mode, just write the shit into the menu lol
         elif option == '4':
-            pass      
+            # Make 5 random bandit enemy objects
+            for i in range(0, 5):
+                enemy = Enemy()
+                enemy.make_bandit()
+                
+                # Print out the enemy's stats as an f string
+                print(f'Name: {colored(enemy.name, "red")}\n' 
+                      f'Type: {enemy.type}\n'
+                      f'Level: {enemy.level}\n'
+                      f'Health: {enemy.health}\n'
+                      f'Defense: {enemy.defense}\n'
+                      f'Attack: {enemy.attack}\n'
+                      f'Loot: {enemy.loot}\n')
+                """ 
+                TODO: eventually, since there will be probably be not
+                    a lot of enemies in total to beat the game, I will need
+                    to convert most of the dictionaries into lists and
+                    drop some loot items from the list when they are assigned.
+                 
+                """
+            #continue
         else:
             continue
         
