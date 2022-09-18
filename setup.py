@@ -9,7 +9,7 @@ def main_game_loop(player):
     while player.end == False:  
         action.prompt(player)
         
-def setup_game():
+def game():
     util.clear_term(0)
     
     #### PLAYER NAME SETUP #####

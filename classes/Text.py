@@ -1,5 +1,8 @@
+from distutils.fancy_getopt import wrap_text
 from dictionaries.world import zonemap_dict, solved_places
 from classes.Utility import Utilities as util
+import textwrap
+
 
 class textFunc:
             
@@ -12,6 +15,7 @@ class textFunc:
 
         print(arrival_str)
         util.spacing(2)
+
     
     def welcome_speech(): 
            
@@ -22,44 +26,24 @@ class textFunc:
         for speech in welcome_speeches:
             util.scroll_text(speech, 0.05)
             
+               
     def print_player_info(player):
-        print("Name:\t", player.name)
-        print("Role:\t", player.role)
-        print("Health:\t", player.cur_health)
-        print("Mana:\t", player.cur_mana)
-        print("Stamina:", player.cur_stamina)
-        print("Effects:", player.effects)
-        print("Items:\t", player.items)
-        print("Carry Weight:", player.cur_carry_weight)
-        util.spacing(1)
-        print("Current Location: ", player.location)
-        util.spacing(2)
         
-    def display_menu(menu):
+        player_stats_text = f"""
+        Name: {player.name}
+        Role: {player.role}
+        Health: {player.cur_health}
+        Mana: {player.cur_mana}
+        Stamina: {player.cur_stamina}
+        Effect: {player.effects}
+        Items: {player.items}
+        Carry Weight: {player.cur_carry_weight}
+
+        Current Location: {player.location}
         
-        if menu == 'help':
-            
-            print('**************************************************')
-            print('* pyRPG: A text-based RPG that no one asked for! *')
-            print('**************************************************')
-            print('*  - Type up, down, left, right to move          *')
-            print('*  - Type "look" to inspect something            *')
-            print('*  - Type "actions" for other available actions  *')
-            print('*  - Don\'t die                                  *')
-            print('*                  + Play (1) +                  *')
-            print('*                  + Quit (3) +                  *')
-            print('**************************************************')      
+        """
+        fixed_player_text = textwrap.dedent(player_stats_text)
+        print(fixed_player_text)
         
-        elif menu == 'main':
-            
-            print('**************************************************')
-            print('*                  ~  pyRPG  ~                   *')
-            print('*     A text-based RPG that no one asked for!    *')
-            print('**************************************************')
-            print('*                                                *')
-            print('*     Play (1) - Start a new game                *')
-            print('*     Help (2) - View the help menu              *')
-            print('*     Quit (3) - Quit the game                   *')
-            print('*                                                *')
-            print('*                   Version: 0                   *')
-            print('**************************************************') 
+         
+     

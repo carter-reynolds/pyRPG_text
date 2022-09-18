@@ -2,14 +2,32 @@
 #Carter Reynolds
 
 import menu
+import setup
 
-# Modes/Settings
-RUN = True
-MENU = True
-PLAY = False
-RULES = False
 
-while RUN:
-    while MENU:
-        menu.title_screen()
+def main():
+    
+    # Modes/Settings
+    RUNNING = True
+    MENU = True
+    PLAY = False
+
+    while RUNNING:
+        if MENU:
+            MENU = menu.display()
+            if not MENU:
+                PLAY = True
+        elif PLAY:
+            setup.game()
+        else:
+            MENU = True
+            
+main()
+
+
+
+       
+
+      
+   
         
