@@ -1,3 +1,4 @@
+# These are obviously placeholders
 
 common_loot = {
     0: "Potion",
