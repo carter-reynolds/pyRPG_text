@@ -1,10 +1,7 @@
 from classes.MenuTexts import Menu
 from classes.Utility import Utilities as util
-from classes.Enemies import Enemy
-
 import setup
 import sys
-
 
 
 def display(): # Load title screen
