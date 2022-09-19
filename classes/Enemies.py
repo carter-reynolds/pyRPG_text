@@ -47,19 +47,18 @@ class Enemy:
         stats = self.set_stats()
         
         if self.level == levels[0]:
-            return self.assign_random_loot(2)
+            return self.assign_random_loot(1)
         elif self.level == levels[1]:
-            return self.assign_random_loot(4)
+            return self.assign_random_loot(2)
         elif self.level == levels[2]:
-            return self.assign_random_loot(6)
+            return self.assign_random_loot(3)
         elif self.level == levels[3]:
-            return self.assign_random_loot(8)
+            return self.assign_random_loot(4)
         
         return stats
             
         
         
-    
     # Make a random enemy with type of goblin
     def make_goblin(self):
         self.name = goblin_names[rand.randint(0, 9)]
