@@ -5,6 +5,7 @@ import sys
 from termcolor import colored
 
 
+
 def display(): # Load title screen
     
     util.clear_term(0)

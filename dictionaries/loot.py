@@ -82,4 +82,3 @@ creature_loot_dict = {
     3: "A Bag of Spider Eggs",
     4: "A Bag of Spider Legs"
 }
-
