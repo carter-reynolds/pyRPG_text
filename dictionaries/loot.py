@@ -83,3 +83,6 @@ creature_loot_dict = {
     4: "A Bag of Spider Legs"
 }
 
+
+
+    
