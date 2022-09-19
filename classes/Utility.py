@@ -9,6 +9,7 @@ class Utilities:
         system_type = platform.system()
         time.sleep(delay)
         
+        # TODO - there's a one-liner for this but :shrug:
         if system_type == "Windows":
             os.system('cls')
         else:
