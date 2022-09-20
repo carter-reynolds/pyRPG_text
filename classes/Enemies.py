@@ -1,3 +1,4 @@
+from classes.Database import Database as db
 from dictionaries.enemy_types import types, levels
 from dictionaries.enemy_names import bandit_names, goblin_names, undead_names, creature_names
 from dictionaries.loot import bandit_loot_dict, goblin_loot_dict, undead_loot_dict, creature_loot_dict

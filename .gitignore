@@ -14,3 +14,6 @@ dictionaries/__pycache__/world.cpython-310.pyc
 classes/__pycache__/MenuTexts.cpython-310.pyc
 dictionaries/__pycache__/loot.cpython-310.pyc
 dictionaries/__pycache__/loot_descriptions.cpython-310.pyc
+.vscode/settings.json
+classes/__pycache__/Database.cpython-310.pyc
+game.db

@@ -36,7 +36,7 @@ class textFunc:
         Mana: {player.cur_mana}
         Stamina: {player.cur_stamina}
         Effect: {player.effects}
-        Items: {player.items}
+        Inventory: {player.inventory}
         Carry Weight: {player.cur_carry_weight}
 
         Current Location: {player.location}

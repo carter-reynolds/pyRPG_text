@@ -1,10 +1,10 @@
+from classes.Database import Database as db
+
 class Player:
     def __init__(self, name, role):
         self.name = name
         self.role = role
         self.end = False
-        
-        self.start_path = 0     # Determines one of 3 story paths that result in different starting variables
         
         self.gold = 100
         self.weapon = ''
@@ -12,11 +12,8 @@ class Player:
         
         self.level = 1
         self.xp = 0
-        self.xp_multiplier = 0
         
-        self.items = []
-        self.weapons = []
-        self.pockets = []
+        self.inventory = []
         self.effects = []
         
         self.base_health = 0
@@ -41,6 +38,13 @@ class Player:
         
         self.max_carry_weight = 0 
         self.cur_carry_weight = self.max_carry_weight
+        
+    def write_player_data(self):
+        sql = '''
+            INSERT INTO player (name, role, level, gold, location, health, defense, attack, weapon, shield, armor, effect)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        '''
+        db.execute(sql, (self.name, self.role, self.level, self.gold, self.location, self.cur_health, self.cur_defense, self.cur_attack, self.weapon, '', '', ''))
         
     def set_player_stats(self, role):
         if role == 'Warrior':
@@ -73,6 +77,8 @@ class Player:
             self.cur_attack = 5
             self.cur_carry_weight = 100
             self.weapon = 'Cracked Oak Staff'
+        self.write_player_data()
+        
                    
     def alter_stamina(self, amount, direction):
         if direction == 0:
