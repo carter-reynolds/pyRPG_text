@@ -1,5 +1,6 @@
 import dictionaries.loot as loot
 import dictionaries.loot_descriptions as desc
+from classes.Database import Database as db
 
 """
 No clue what the functionality of this should be yet
@@ -17,6 +18,21 @@ special_bandit_loot = list(loot.special_bandit_loot.values())
 special_goblin_loot = list(loot.special_goblin_loot.values())
 special_undead_loot = list(loot.special_undead_loot.values())
 special_creature_loot = list(loot.special_creature_loot.values())
+
+def setup_inventory():
+    
+    # Create a list of all the loot items
+    full_loot_table = get_full_loot_table()
+    
+    # Create an empty list to hold the items from all indiv. loot tables
+    inventory = []
+    
+    for i in full_loot_table:
+        inventory.append([i, 0])
+        db.execute("INSERT INTO inventory (name, quantity)"
+                   "VALUES (?, ?)", (i, 0))
+        
+    return inventory
 
 
 def get_full_loot_table():
@@ -39,6 +55,7 @@ def get_full_loot_table():
     for l in loot_tables:
         for i in l:
             full_loot_table.append(i)
+            
     
     full_loot_table = list(dict.fromkeys(full_loot_table))
             

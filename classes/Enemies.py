@@ -15,6 +15,7 @@ class Enemy:
         self.loot = []      # Loot they would drop, if any, will likely be randomly assigned
         self.weapon = ''    # Weapon they are using - should contribute to damage
         self.effect = []    # Random effect
+        self.location = ''  # Location of the enemy
     
             
     def random_level(self):
@@ -36,42 +37,73 @@ class Enemy:
                 random_loot = creature_loot_dict[rand.randint(0, 4)]
                 self.loot.append(random_loot)
             else:
-                pass
+                pass 
         
     # Make a random enemy with type of bandit
     def make_bandit(self):
         
-        self.name = bandit_names[rand.randint(0, 9)]
+        print("MAKE BANDIT")
+        
+        rand_int = rand.randint(0, 9)
+        
+        self.name = bandit_names[rand_int]
         self.type = types[0]
         self.level = self.random_level()
         
-        stats = self.set_stats()
+        self.set_stats()
+        print("stats set")
         
         if self.level == levels[0]:
-            return self.assign_random_loot(1)
+            self.assign_random_loot(1)
         elif self.level == levels[1]:
-            return self.assign_random_loot(2)
+            self.assign_random_loot(2)
         elif self.level == levels[2]:
-            return self.assign_random_loot(3)
+            self.assign_random_loot(3)
         elif self.level == levels[3]:
-            return self.assign_random_loot(4)
+            self.assign_random_loot(4)
         
-        return stats
+        print("random loot assigned")
+        
+        bandit_names.pop(rand_int)
+        print("bandit name popped")
+        
+        sql = "INSERT INTO enemies (name, type, level, health, defense, attack, loot) VALUES (?, ?, ?, ?, ?, ?, ?);"
             
+        query = db.execute("INSERT INTO enemies (name, type, level, health, defense, attack, loot)"
+                   "VALUES (?, ?, ?, ?, ?, ?, ?);", 
+                   (self.name, self.type, self.level, self.health, self.defense, self.attack, ''))
         
+        return query
+            
         
     # Make a random enemy with type of goblin
     def make_goblin(self):
+        
+        rand_int = rand.randint(0, 8)
+        
         self.name = goblin_names[rand.randint(0, 9)]
         self.type = types[1]
-        self.level = levels[rand.randint(0, 3)]
+        self.level = self.random_level()
         
-        random_loot = goblin_loot_dict[rand.randint(0, 8)]
-        
-        for i in range(0, self.level):
-            self.loot.append(random_loot)
-            
         self.set_stats()
+        
+        if self.level == levels[0]:
+            self.assign_random_loot(1)
+        elif self.level == levels[1]:
+            self.assign_random_loot(2)
+        elif self.level == levels[2]:
+            self.assign_random_loot(3)
+        elif self.level == levels[3]:
+            self.assign_random_loot(4)
+        
+        goblin_names.pop(rand_int)
+        
+        query = '''
+            INSERT INTO enemies (name, type, level, health, defense, attack, loot)
+            VALUES (?, ?, ?, ?, ?, ?, ?);
+            '''
+        db.execute(query, (self.name, self.type, self.level, self.health, self.defense, self.attack, ''))
+        
     
     # Make a random enemy with type of undead
     def make_undead(self):
