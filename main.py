@@ -45,7 +45,8 @@ def main():
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
                     
                 db.execute(sql, (name, type, level, health, attack, defense, weapon, loot, effects))
-                    
+                
+            '''     
             input("halt")
             
             goblins = enemy.make_goblins()
@@ -62,8 +63,8 @@ def main():
             for creature in creatures:
                 print(creature)
             input("halt")
+            '''
             
-            #loot_table.setup_inventory()
             setup.game()
         else:
             MENU = True
