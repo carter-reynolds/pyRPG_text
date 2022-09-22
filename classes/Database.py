@@ -1,5 +1,6 @@
 from fileinput import filename
 import sqlite3
+from classes.Utility import Utilities as util
 
 class Database:
     def __init__(self, filename,**kwargs):
@@ -7,6 +8,8 @@ class Database:
         
     
     def create_game_tables():
+        
+        timer_start = util.timer()
     
         db = sqlite3.connect('db/game.db')
         
@@ -16,6 +19,10 @@ class Database:
             db.commit()
             db.close()
         f.close()
+        
+        timer_final = util.timer() - timer_start
+        
+        print("Finished creating tables. Took {} seconds.".format(timer_final))
           
     def execute(sql, params = ()):
         print("connecting")
@@ -35,6 +42,7 @@ class Database:
         rows = cursor.fetchall()
         db.close()
         return rows
+
    
     
    

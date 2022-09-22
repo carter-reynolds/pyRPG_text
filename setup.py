@@ -1,14 +1,32 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
 from classes.Player import Player
+from classes.Database import Database as db
 import re
 import player_action as action
 import textwrap
+import os
+import loot_table
 
 
 def main_game_loop(player):
     while player.end == False:  
         action.prompt(player)
+        
+# if game.db exists return true else return false
+def check_for_db():
+    if os.path.exists('db/game.db'):
+        return True
+    else:
+        return False
+    
+def create_db():
+    db('db/game.db')
+    db.create_game_tables()
+    loot_table.setup_inventory()
+    print("Database and tables created!")
+    
+    
         
 def game():
     util.clear_term(0)

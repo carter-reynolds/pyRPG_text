@@ -14,7 +14,6 @@ class Player:
         self.xp = 0
         
         self.inventory = []
-        self.effects = []
         
         self.base_health = 0
         self.max_health = 0
@@ -39,9 +38,11 @@ class Player:
         self.max_carry_weight = 0 
         self.cur_carry_weight = self.max_carry_weight
         
+        self.effects = []
+        
     def write_player_data(self):
         sql = '''
-            INSERT INTO player (name, role, level, gold, location, health, defense, attack, weapon, shield, armor, effect)
+            INSERT INTO player (name, role, level, gold, location, health, defense, attack, weapon, shield, armor, effects)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         '''
         db.execute(sql, (self.name, self.role, self.level, self.gold, self.location, self.cur_health, self.cur_defense, self.cur_attack, self.weapon, '', '', ''))
@@ -55,12 +56,6 @@ class Player:
             self.max_defense = 10
             self.max_attack = 15
             self.max_carry_weight = 100
-            self.cur_health = 120
-            self.cur_mana = 20
-            self.cur_stamina = 150
-            self.cur_defense = 10
-            self.cur_attack = 15
-            self.cur_carry_weight = 100
             self.weapon = 'Dulled Short Sword'     
         elif role == 'Mage':
             self.role = 'Mage'
@@ -70,12 +65,6 @@ class Player:
             self.max_defense = 10
             self.max_attack = 5
             self.max_carry_weight = 100
-            self.cur_health = 85
-            self.cur_mana = 100
-            self.cur_stamina = 75
-            self.cur_defense = 10
-            self.cur_attack = 5
-            self.cur_carry_weight = 100
             self.weapon = 'Cracked Oak Staff'
         self.write_player_data()
         

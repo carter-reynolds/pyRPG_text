@@ -48,7 +48,7 @@ def load_enemy_data():
     
     timer_final = time.time() - timer_start
     
-    print(f"Finished saving enemy data after {timer_final} seconds.")
+    print(f"Finished loading enemy data after {timer_final} seconds.")
     
     
 def save_player_data():

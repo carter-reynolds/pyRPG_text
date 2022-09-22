@@ -2,6 +2,7 @@ import platform
 import time
 import os
 import sys
+import random as rand
 
 class Utilities:
     
@@ -24,3 +25,11 @@ class Utilities:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(speed)
+            
+    def excluded_random(r1, r2, exclude_list):
+        print("Excluded random called: ", r1, r2, exclude_list)
+        return rand.choice([i for i in range(r1,r2) if i not in [exclude_list]])
+    
+    def timer():
+        cur = time.time()
+        return cur

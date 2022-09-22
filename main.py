@@ -3,21 +3,8 @@
 
 import menu
 import setup
-from classes.Database import Database
-from classes.Enemies import Enemy
-import loot_table
-import time
-
-# This function will move in due time. its only here for testing purposes
-def add_enemies_to_table():
-        enemy = Enemy()
-        for i in range(3):
-            enemy.make_bandit()  # inserts 3 bandits into enemies table
-            time.sleep(2)
-            enemy.make_goblin()  # inserts 3 goblins into enemies table
-            #enemy.make_creature()
-            #enemy.make_undead()
-            
+from classes.Database import Database as db
+from classes.Enemies import Enemy as enemy
 
 
 def main():
@@ -33,14 +20,50 @@ def main():
             if not MENU:
                 PLAY = True
         elif PLAY:
-            # most of this is here for debugging and testing purposes
-            Database(filename = 'db/game.db')
-            Database.create_game_tables()
-            print("Tables created")
-            time.sleep(5)
-            add_enemies_to_table()
-            print("enemies added")
-            loot_table.setup_inventory()
+    
+            # check if game.db exists
+            if not setup.check_for_db():
+                # if not, create it
+                setup.create_db()
+            else:
+                pass
+                
+            bandits = enemy.make_bandits()
+           
+            for bandit in bandits:
+                name = bandit[0]
+                type = bandit[1]
+                level = bandit[2]
+                health = bandit[3]
+                defense = bandit[4]
+                attack = bandit[5]
+                weapon = ''
+                loot = str(bandit[6])
+                effects = ''
+                       
+                sql = '''INSERT INTO enemies (name, type, level, health, attack, defense, weapon, loot, effects) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+                    
+                db.execute(sql, (name, type, level, health, attack, defense, weapon, loot, effects))
+                    
+            input("halt")
+            
+            goblins = enemy.make_goblins()
+            for goblin in goblins:
+                print(goblin)
+            input("halt")
+            
+            undeads = enemy.make_undead()
+            for undead in  undeads:
+                print(undead)
+            input("halt")
+            
+            creatures = enemy.make_creature()
+            for creature in creatures:
+                print(creature)
+            input("halt")
+            
+            #loot_table.setup_inventory()
             setup.game()
         else:
             MENU = True
