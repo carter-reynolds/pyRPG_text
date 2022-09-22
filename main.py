@@ -4,7 +4,7 @@
 import menu
 import setup
 from classes.Database import Database as db
-from classes.Enemies import Enemy as enemy
+from classes.Enemies import Enemy
 
 
 def main():
@@ -27,10 +27,10 @@ def main():
                 setup.create_db()
             else:
                 pass
-                
-            bandits = enemy.make_bandits()
+            
+            enemy = Enemy()
            
-            for bandit in bandits:
+            for bandit in enemy.make_bandits():
                 name = bandit[0]
                 type = bandit[1]
                 level = bandit[2]
