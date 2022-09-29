@@ -3,23 +3,28 @@ from classes.Utility import Utilities as util
 from dictionaries.world import zonemap_dict
 import time
 import sys
+import encounter as event
+import fight
+
 
 def prompt(player):
     
-    system_actions = ['quit']
+    system_actions = ['quit', 'inventory']
     move_actions = ['move', 'go', 'travel', 'traverse', 'walk']
     examine_actions = ['examine', 'inspect', 'look']
+    combat_actions = ['attack', 'run', 'heal']
     
-    verify_action = system_actions + move_actions + examine_actions
+    valid_actions = system_actions + move_actions + examine_actions + combat_actions
     
     text.print_player_info(player)
     
     print("What would you like to do?")
     util.spacing(1)
     action = input("> ")
+    action = action.lower()
     
     while True:
-        if action not in verify_action:
+        if action not in valid_actions:
             util.clear_term(0)
             print("Invalid Action... Try Again.\n")
             util.clear_term(1)
@@ -28,12 +33,17 @@ def prompt(player):
         elif action in system_actions:
             if action == 'quit':
                 sys.exit()
+            elif action == 'inventory':
+                print(player.inventory)
+                prompt(player)
         elif action in move_actions:
             player_move(action, player)
             break
         elif action in examine_actions:
             player_examine(action, player)
-            break  
+            break 
+        elif action in combat_actions():
+            pass
 
                     
 def player_move(action, player):
@@ -84,6 +94,19 @@ def movement_handler(destination, player):
         player.location = destination
         player.alter_stamina(1, 0)
         util.scroll_text("Traveling....", 0.05)
+        encounter = event.encounter_check(destination)
+        input("Press Enter/Return to continue.")
+        if encounter == False:
+            util.clear_term(0)
+            util.scroll_text(("You have arrived at " + destination + "."), 0.05)
+            util.clear_term(2)
+            prompt(player)
+        else:
+            util.clear_term(0)
+            print("You have encountered a " + encounter)
+            fight.fight(player)
+            util.clear_term(2)
+            prompt(player)
         util.clear_term(2)
         util.scroll_text(("You have arrived at " + destination + "."), 0.05)
         util.clear_term(2)
@@ -100,3 +123,11 @@ def player_examine(action, player):
         util.spacing(2)
         input("Press Enter/Return to continue.")
         prompt(player)
+
+def player_combat(action):
+    if action == 'attack':
+        pass
+    elif action == 'run':
+        pass
+    elif action == 'heal':
+        pass

@@ -14,33 +14,29 @@ from dictionaries.loot_descriptions import (
     special_creature_loot_descriptions
 )
 
-class Item():
-    def __init__(self, name, description, value, weight, _type):
-        self.name = name
-        self.description = description
-        self.value = value
-        self.weight = weight
-        self._type = _type
+from classes.Player import Player
+from classes.Database import Database as db
 
-    # Create a function that creates items based on the dictionaries in loot.py
-    def create_item(self, item_dict, desc_dict):
+class Item():
+    def __init__(self, item, quantity=0, weight=0):
+        self.item = ''
+        self.quantity = 0
+        self.weight = 0
         
-        for key, value in zip(item_dict, desc_dict): # pythonically iterate through the dictionaries and zip them together
-            print(key, value)
-            item_and_descriptions = (key, value)  # Tuple time
-            
-        # Create an empty list to hold the items
-        global_valid_items = []
-        # Loop through the dictionary
-        for key, value in item_dict.global_valid_items():
-            # Create an item object
-            item = Item(value, "This is a description", 0, 0, "General")
-            # Append the item to the list
-            global_valid_items.append(item)
-        # Return the list
-        return global_valid_items
+    def increase_quantity(self, amount):
+        for i in range(amount):
+            self.quantity += 1
     
-    create_item(bandit_loot_dict, bandit_loot_descriptions)
+    def add_to_player_inventory(self, player):
+        pass
+    
+            
+    
+        
+    
+                
+
+    
     
     
     

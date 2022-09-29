@@ -29,22 +29,27 @@ def create_db():
     
         
 def game():
+    
     util.clear_term(0)
     
     #### PLAYER NAME SETUP #####
     is_named = False
-    role = 'null'
+    role = None
     
     while is_named == False:
+        
         util.scroll_text("What is your name?\n", 0.05)
+        
         name = input('> ')
         name_clean = re.sub(r'[^a-zA-Z]', '', name)
+        
         if name_clean != '':
             player = Player(name_clean, role)
             is_named = True
             break
         elif name_clean == '':
             continue
+        
     util.clear_term(0)
     
     #### ROLE ASSIGNMENT ####
@@ -61,7 +66,8 @@ def game():
 
     while True:
         if role_choice == '1':
-            role =  'Warrior'
+            role = 'Warrior'
+            player.role = role
             player.set_player_stats(role)
             util.scroll_text("You have chosen Warrior -- here are your starting stats:", 0.05)
             util.spacing(2)
@@ -70,6 +76,7 @@ def game():
             break
         elif role_choice == '2':
             role =  'Mage'
+            player.role = role
             player.set_player_stats(role)
             util.scroll_text("You have chosen Mage -- here are your starting stats:", 0.05)
             util.spacing(2)
@@ -85,5 +92,9 @@ def game():
     
     util.clear_term(0) 
     text.welcome_speech()
-    util.clear_term(0.95)           
-    main_game_loop(player)
+    util.clear_term(0.95)
+    
+    is_set_up = True
+    
+    return (is_set_up, player)           
+    

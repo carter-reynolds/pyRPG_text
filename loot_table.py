@@ -61,7 +61,7 @@ def get_full_loot_table():
             
     return full_loot_table
 
-print(get_full_loot_table())
+
     
     
     

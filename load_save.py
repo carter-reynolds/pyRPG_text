@@ -24,7 +24,7 @@ def load_player_data():
     player.weapon = player_data[0][9]
     player.effects = player_data[0][10]
     
-    print(type(player.name), type(player.level), type(player.role), type(player.gold), type(player.location), type(player.cur_health), type(player.cur_defense), type(player.cur_attack), type(player.weapon), type(player.effects))
+    print(player.name, player.level, player.role, player.gold, player.location, player.cur_health, player.cur_defense, player.cur_attack, player.weapon, player.effects)
         
     timer_final = time.time() - timer_start
     

@@ -32,7 +32,7 @@ special_creature_loot = {
 
 # General Loot given by Bandits    
 bandit_loot_dict = {
-    0: "Gold",
+    0: {"Gold": {"weight": 0.1}},
     1: "Health Potion",
     2: "Set of Playing Cards",
     3: "Red Bandana",
@@ -43,6 +43,8 @@ bandit_loot_dict = {
     8: "Vial of Acid",
     9: "Vial of Poison"
 }
+
+
 
 # General Loot given by Goblins
 goblin_loot_dict = {

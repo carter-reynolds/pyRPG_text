@@ -34,12 +34,13 @@ class textFunc:
         Role: {player.role}
         Health: {player.cur_health}
         Mana: {player.cur_mana}
+        Attack: {player.cur_attack}
         Stamina: {player.cur_stamina}
         Effect: {player.effects}
         Inventory: {player.inventory}
         Carry Weight: {player.cur_carry_weight}
 
-        Current Location: {player.location}
+        Current Location: {zonemap_dict[player.location]['ZONENAME']} - {player.location}
         
         """
         fixed_player_text = textwrap.dedent(player_stats_text)

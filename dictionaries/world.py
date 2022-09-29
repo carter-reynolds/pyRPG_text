@@ -4,6 +4,19 @@ solved_places = {
     'C1': False, 'C2': False, 'C3': False
 }
 
+
+zonemap_enemies = {
+    'A1': ['Bandit'],
+    'A2': ['Bandit', 'Goblin'],
+    'A3': ['Bandit', 'Goblin'],
+    'B1': ['Bandit'],
+    'B2': [],
+    'B3': ['Bandit'],
+    'C1': [],
+    'C2': ['Bandit'],
+    'C3': ['Bandit']
+}
+
 zonemap_dict = {
     'A1': {
         'ZONENAME': 'Town',

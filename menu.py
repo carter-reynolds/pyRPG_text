@@ -3,7 +3,6 @@ from classes.Utility import Utilities as util
 from classes.Enemies import Enemy
 import setup
 import sys
-from termcolor import colored
 
 
 
@@ -33,7 +32,7 @@ def display(): # Load title screen
                 enemy.make_bandit()
                 
                 # Print out the enemy's stats as an f string
-                print(f'Name: {colored(enemy.name, "red")}\n' 
+                print(f'Name: {enemy.name}\n' 
                       f'Type: {enemy.type}\n'
                       f'Level: {enemy.level}\n'
                       f'Health: {enemy.health}\n'

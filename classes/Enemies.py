@@ -6,216 +6,162 @@ from dictionaries.loot import bandit_loot_dict, goblin_loot_dict, undead_loot_di
 import random as rand
 
 class Enemy:
-    def __init__(self): # Only name and type will be required for now
-        self.name = ""   # The name of the enemy
-        self.type = ""    # What type of enemy they are
-        self.level = 0      # The level of the enemy
-        self.health = 0     # How much health the enemy has
-        self.defense = 0    # How well they can defend
-        self.attack = 0     # How much damage they would do
-        self.loot = []      # Loot they would drop, if any, will likely be randomly assigned
-        self.weapon = ''    # Weapon they are using - should contribute to damage
-        self.effect = []    # Random effect
-        self.location = ''  # Location of the enemy
+    
+    # Init Enemy Generation
+    def __init__(self, type_, level):
+        self.name = self.assign_random_name(type_) 
+        self.type = int(type_)    
+        self.level = int(level)   
+        
+        # These are set by the set_stats method after self.level is set  
+        self.gold = 0       
+        self.health = 0     
+        self.defense = 0    
+        self.attack = 0    
+        self.loot = self.assign_random_loot(type_, level)
+        
+        # Extra stuff not really used yet      
+        self.weapon = ''   
+        self.effect = []    
+        self.location = '' 
+        self.defeated = 0   
+        
+        # Set all stats based on level, also sets gold amount
+        self.set_stats(level)  
+        
+        
         
     def random_level(self):
         return rand.randint(0, 3)
     
+    def assign_random_name(self, type_):
+        
+        random_bandit = rand.randint(0, (len(bandit_names) - 1))
+        random_goblin = rand.randint(0, (len(goblin_names) - 1))
+        random_undead = rand.randint(0, (len(undead_names) - 1))
+        random_creature = rand.randint(0, (len(creature_names) - 1))
+        
+        if type_ == 0:
+            name = bandit_names[random_bandit]
+        elif type_ == 1:
+            name = goblin_names[random_goblin]
+        elif type_ == 2:
+            name = undead_names[random_undead]
+        elif type_ == 3:
+            name = creature_names[random_creature]
+        else:
+            pass
+        
+        return name
+    
     
     # Assign some random loot to the enemy
-    def assign_random_loot(self, number_of_loot):
+    def assign_random_loot(self, _type, level):
         
         loot = []
         
+        if level == 0:
+            number_of_loot = rand.randint(1, 2)
+        if level == 1:
+            number_of_loot = rand.randint(2, 3)
+        if level == 2:
+            number_of_loot = rand.randint(3, 5)
+        if level == 3:
+            number_of_loot = rand.randint(3, 7)
+        
         for i in range(number_of_loot):
-            if self.type == types[0]:
+            if _type == 0:
                 random_loot = bandit_loot_dict[rand.randint(0, 9)]
                 loot.append(random_loot)
-            elif self.type == types[1]:
+            elif _type == 1:
                 random_loot = goblin_loot_dict[rand.randint(0, 8)]
                 loot.append(random_loot)
-            elif self.type == types[2]:
+            elif _type == 2:
                 random_loot = undead_loot_dict[rand.randint(0, 12)]
                 loot.append(random_loot)
-            elif self.type == types[3]:
+            elif _type == 3:
                 random_loot = creature_loot_dict[rand.randint(0, 4)]
                 loot.append(random_loot)
             else:
                 pass 
         return loot
-        
-    # Make a random enemy with type of bandit
-    def make_bandits(self):
-        
-        print("Making bandits")
-        
-        active_bandits = []
-            
-        for name in bandit_names:
-            
-            print(name)
-        
-            self.name = bandit_names[name]  # assign the unique name to the enemy
-            self.type = types[0]                # assign the type 'Bandit'
-            self.level = self.random_level()    # assign a random level
-            
-            self.set_stats()  # set all other stats based on the level we just set
-            
-            
-            # set quantity of loot based on level
-            if self.level == 0:
-                self.loot = self.assign_random_loot(1)
-            elif self.level == 1:
-                self.loot = self.assign_random_loot(2)
-            elif self.level == 2:
-                self.loot = self.assign_random_loot(3)
-            elif self.level == 3:
-                self.loot = self.assign_random_loot(4)
-            
-            # Finally, add the bandit enemy to the list of active bandits
-            active_bandits.append([self.name, self.type, self.level, self.health, self.defense, self.attack, self.loot])
-        
-        return active_bandits
-        
-            
-        
-    # Make a random enemy with type of goblin
-    def make_goblins(self):
-        
-        print("Making goblins")
-        
-        active_goblins = []
-            
-        for name in goblin_names:
-            
-            print(name)
-        
-            self.name = goblin_names[name]  # assign the unique name to the enemy
-            self.type = types[1]                # assign the type 'Goblin'
-            self.level = self.random_level()    # assign a random level
-            
-            self.set_stats()  # set all other stats based on the level we just set
-            
-            
-            # set quantity of loot based on level
-            if self.level == 0:
-                self.loot = self.assign_random_loot(1)
-            elif self.level == 1:
-                self.loot = self.assign_random_loot(2)
-            elif self.level == 2:
-                self.loot = self.assign_random_loot(3)
-            elif self.level == 3:
-                self.loot = self.assign_random_loot(4)
-            
-            # Finally, add the bandit enemy to the list of active bandits
-            active_goblins.append([self.name, self.type, self.level, self.health, self.defense, self.attack, self.loot])
-             
-        return active_goblins
-        
-    # Make a random enemy with type of undead
-    def make_undead(self):
-        
-        print("Making undead")
-        
-        active_undead = []
-            
-        for name in undead_names:
-            
-            print(name)
-        
-            self.name = undead_names[name]
-            self.type = types[2]
-            self.level = self.random_level()
-
-            self.set_stats()    # set all other stats based on the level we just set
-        
-            # set quantity of loot based on level
-            if self.level == 0:
-                self.loot = self.assign_random_loot(3)
-            elif self.level == 1:
-                self.loot = self.assign_random_loot(6)
-            elif self.level == 2:
-                self.loot = self.assign_random_loot(9)
-            elif self.level == 3:
-                self.loot = self.assign_random_loot(12)
-            
-            # Finally, add the bandit enemy to the list of active bandits
-            active_undead.append([self.name, self.type, self.level, self.health, self.defense, self.attack, self.loot])
-        
-        return active_undead
-        
-    # Make a random enemy with type of creature
-    def make_creature(self):
-        
-        print("Making creatures")
-        
-        active_creatures = []
-            
-        for name in creature_names:
-            
-            print(name)
-        
-            self.name = creature_names[name]
-            self.type = types[3]
-            self.level = self.random_level()
-
-            self.set_stats()    # set all other stats based on the level we just set
-        
-            # set quantity of loot based on level
-            if self.level == 0:
-                self.loot = self.assign_random_loot(1)
-            elif self.level == 1:
-                self.loot = self.assign_random_loot(2)
-            elif self.level == 2:
-                self.loot = self.assign_random_loot(3)
-            elif self.level == 3:
-                self.loot = self.assign_random_loot(4)
-            
-            # Finally, add the bandit enemy to the list of active bandits
-            active_creatures.append([self.name, self.type, self.level, self.health, self.defense, self.attack, self.loot])
-        
-        return active_creatures
-        
-    def make_enemies(self):
-        self.make_bandits()
-        self.make_goblins()
-        self.make_undead()
-        self.make_creature()
-
-        
       
     # Set up all stats based on level
-    def set_stats(self):
-        if self.level == 0:
+    def set_stats(self, level):
+        
+        if level == 0:
             self.health = rand.randint(1, 10)
             self.defense = rand.randint(1, 10)
             self.attack = rand.randint(1, 10)
-        elif self.level == 1:
+            self.gold = rand.randint(1, 10) * 1
+        elif level == 1:
             self.health = rand.randint(10, 20)
             self.defense = rand.randint(10, 20)
             self.attack = rand.randint(10, 20)
-        elif self.level == 2:
+            self.gold = rand.randint(10, 20) * 2
+        elif level == 2:
             self.health = rand.randint(20, 30)
             self.defense = rand.randint(20, 30)
             self.attack = rand.randint(20, 30)
-        elif self.level == 3:
+            self.gold = rand.randint(20, 30) * 3
+        elif level == 3:
             self.health = rand.randint(30, 40)
             self.defense = rand.randint(30, 40)
             self.attack = rand.randint(30, 40)
+            self.gold = rand.randint(30, 40) * 4
         else:
             pass
+        
+        attributes = {
+            'level': self.level, 
+            'health': self.health, 
+            'defense': self.defense, 
+            'attack': self.attack, 
+            'gold': self.gold 
+        }
+        
+        return attributes.values()
       
     # Display all enemy stats
     def display_stats(self):
-        print('Name: {}'.format(self.name))
-        print('Type: {}'.format(self.type))
-        print('Level: {}'.format(self.level))
-        print('Health: {}'.format(self.health))
-        print('Defense: {}'.format(self.defense))
-        print('Attack: {}'.format(self.attack))
-        print('Loot ID: {}'.format(self.loot))
-        print('Weapon ID: {}'.format(self.weapon))
-        print('Effects: {}'.format(self.effect))
+        
+        print(f""" 
+Name: {self.name}
+Type: {types[self.type]}
+Level: {self.level}
+Health: {self.health}
+Defense: {self.defense}
+Attack: {self.attack}
+Gold: {self.gold}
+Loot: {self.loot}
+              """)
+        
+        
+    def take_damage(self, damage):
+        
+        damage = damage - self.defense
+        
+        if damage < 0:
+            damage = 0
+            print("The {}'s defense was too strong!".format(self.name))
+        else:
+            self.health -= damage
+            print(f"You deal {damage} damage!\n{self.name} has {self.health} health left!")
+            self.check_defeated()
+        
+    def check_defeated(self):
+        if self.health <= 0:
+            self.defeated = 1
+            return True
+        else:
+            return False
+        
+        
+   
+        
+        
+    
+    
         
 
 

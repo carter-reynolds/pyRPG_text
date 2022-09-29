@@ -25,9 +25,7 @@ class Database:
         print("Finished creating tables. Took {} seconds.".format(timer_final))
           
     def execute(sql, params = ()):
-        print("connecting")
         db = sqlite3.connect('db/game.db')
-        print("connected")
         cursor = db.cursor()
         cursor.execute(sql, params)
         db.commit()
@@ -42,6 +40,29 @@ class Database:
         rows = cursor.fetchall()
         db.close()
         return rows
+    
+    def add_item(item, quantity):
+        db = sqlite3.connect('db/game.db')
+        cursor = db.cursor()
+        cursor.execute( """
+                        INSERT INTO inventory (name, quantity) 
+                        VALUES (?, ?)
+                            WHERE name = (?)""", (item, quantity, item))
+        db.commit()
+        db.close()
+        
+    def get_random_level_enemy(type, level):
+        db = sqlite3.connect('db/game.db')
+        cursor = db.cursor()
+        cursor.execute( """
+                    SELECT * FROM enemies
+                        WHERE type = ?
+                            AND level = ?
+                            AND is_defeated = 0
+                        LIMIT 1
+                        """, (type, level))
+                       
+        
 
    
     
