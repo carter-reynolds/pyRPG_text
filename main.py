@@ -18,12 +18,10 @@ def main():
         if MENU:
             MENU = menu.display()
             if not MENU:
-                SETUP = False
-                
                 while not SETUP:
-                    _setup = setup.game()
-                    player = _setup[1]
-                    _setup = _setup[0]
+                    _setup = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
+                    player = _setup[1]  # Created player object from setup
+                    _setup = _setup[0]  # Boolean whether or not setup was finished (overwrites the tuple, i know...)
                     if _setup == True:
                         SETUP = True
                     else:
