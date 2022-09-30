@@ -50,8 +50,8 @@ class Player:
     def set_player_stats(self, role):
         if role == 'Warrior':
             self.max_health = 120
-            self.max_mana = 20
-            self.max_stamina = 150
+            self.max_mana = 40
+            self.max_stamina = 100
             self.max_defense = 10
             self.max_attack = 15
             self.max_carry_weight = 100

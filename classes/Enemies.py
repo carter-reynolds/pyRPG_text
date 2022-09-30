@@ -4,6 +4,7 @@ from dictionaries.enemy_types import types, levels
 from dictionaries.enemy_names import bandit_names, goblin_names, undead_names, creature_names
 from dictionaries.loot import bandit_loot_dict, goblin_loot_dict, undead_loot_dict, creature_loot_dict
 import random as rand
+import textwrap
 
 class Enemy:
     
@@ -71,16 +72,16 @@ class Enemy:
         
         for i in range(number_of_loot):
             if _type == 0:
-                random_loot = bandit_loot_dict[rand.randint(0, 9)]
+                random_loot = bandit_loot_dict[rand.randint(0, 8)]
                 loot.append(random_loot)
             elif _type == 1:
-                random_loot = goblin_loot_dict[rand.randint(0, 8)]
+                random_loot = goblin_loot_dict[rand.randint(0, 7)]
                 loot.append(random_loot)
             elif _type == 2:
-                random_loot = undead_loot_dict[rand.randint(0, 12)]
+                random_loot = undead_loot_dict[rand.randint(0, 11)]
                 loot.append(random_loot)
             elif _type == 3:
-                random_loot = creature_loot_dict[rand.randint(0, 4)]
+                random_loot = creature_loot_dict[rand.randint(0, 3)]
                 loot.append(random_loot)
             else:
                 pass 
@@ -110,31 +111,26 @@ class Enemy:
             self.attack = rand.randint(30, 40)
             self.gold = rand.randint(30, 40) * 4
         else:
-            pass
+            self.health = None
+            self.defense = None
+            self.attack = None
+            self.gold = None
         
-        attributes = {
-            'level': self.level, 
-            'health': self.health, 
-            'defense': self.defense, 
-            'attack': self.attack, 
-            'gold': self.gold 
-        }
         
-        return attributes.values()
       
     # Display all enemy stats
     def display_stats(self):
         
-        print(f""" 
-Name: {self.name}
-Type: {types[self.type]}
-Level: {self.level}
-Health: {self.health}
-Defense: {self.defense}
-Attack: {self.attack}
-Gold: {self.gold}
-Loot: {self.loot}
-              """)
+        print(textwrap.dedent(f""" 
+        Name: {self.name}
+        Type: {types[self.type]}
+        Level: {self.level}
+        Health: {self.health}
+        Defense: {self.defense}
+        Attack: {self.attack}
+        Gold: {self.gold}
+        Loot: {self.loot}
+        """))
         
         
     def take_damage(self, damage):

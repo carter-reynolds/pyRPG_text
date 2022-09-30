@@ -41,7 +41,7 @@ def game():
         util.scroll_text("What is your name?\n", 0.05)
         
         name = input('> ')
-        name_clean = re.sub(r'[^a-zA-Z]', '', name)
+        name_clean = re.sub(r'[^a-zA-Z ]', '', name)
         
         if name_clean != '':
             player = Player(name_clean, role)

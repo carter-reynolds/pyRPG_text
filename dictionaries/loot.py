@@ -32,55 +32,51 @@ special_creature_loot = {
 
 # General Loot given by Bandits    
 bandit_loot_dict = {
-    0: {"Gold": {"weight": 0.1}},
-    1: "Health Potion",
-    2: "Set of Playing Cards",
-    3: "Red Bandana",
-    4: "Rope",
-    5: "Fingerless Gloves",
-    6: "Leather Boots",
-    7: "Leather Gloves",
-    8: "Vial of Acid",
-    9: "Vial of Poison"
+    0: "Health Potion",
+    1: "Set of Playing Cards",
+    2: "Red Bandana",
+    3: "Rope",
+    4: "Fingerless Gloves",
+    5: "Leather Boots",
+    6: "Leather Gloves",
+    7: "Vial of Acid",
+    8: "Vial of Poison"
 }
 
 
 
 # General Loot given by Goblins
 goblin_loot_dict = {
-    0: "Gold",
-    1: "Health Potion",
-    2: "Decomposing Fish Heads",
-    3: "Rusty Sword",
-    4: "Rusty Dagger",
-    5: "Peg Leg",
-    6: "A Coin Purse",
-    7: "A Jar of Pickled Toes",
-    8: "Necklace of Teeth"
+    0: "Health Potion",
+    1: "Decomposing Fish Heads",
+    2: "Rusty Sword",
+    3: "Rusty Dagger",
+    4: "Peg Leg",
+    5: "A Coin Purse",
+    6: "A Jar of Pickled Toes",
+    7: "Necklace of Teeth"
 }
 
 # General Loot given by Undead
 undead_loot_dict = {
-    0: "Gold",
-    1: "Health Potion",
-    2: "Rusty Sword",
-    3: "Rusty Dagger",
-    4: "Tattered Cloak",
-    5: "Tattered Robe",
-    6: "Tattered Shirt",
-    7: "Tattered Pants",
-    8: "Tattered Hat",
-    9: "Tattered Shoes",
-    10: "Tattered Gloves",
-    11: "Tattered Socks",
-    12: "A Bag of Bones"
+    0: "Health Potion",
+    1: "Rusty Sword",
+    2: "Rusty Dagger",
+    3: "Tattered Cloak",
+    4: "Tattered Robe",
+    5: "Tattered Shirt",
+    6: "Tattered Pants",
+    7: "Tattered Hat",
+    8: "Tattered Shoes",
+    9: "Tattered Gloves",
+    10: "Tattered Socks",
+    11: "A Bag of Bones"
 }
 
 # General Loot given by Creatures
 creature_loot_dict = {
-    0: "Gold",
-    1: "Health Potion",
-    2: "A Bag of Spider Webs",
-    3: "A Bag of Spider Eggs",
-    4: "A Bag of Spider Legs"
+    0: "Health Potion",
+    1: "A Bag of Spider Webs",
+    2: "A Bag of Spider Eggs",
+    3: "A Bag of Spider Legs"
 }

@@ -19,13 +19,17 @@ def main():
             MENU = menu.display()
             if not MENU:
                 while not SETUP:
-                    _setup = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
-                    player = _setup[1]  # Created player object from setup
-                    _setup = _setup[0]  # Boolean whether or not setup was finished (overwrites the tuple, i know...)
-                    if _setup == True:
-                        SETUP = True
-                    else:
-                        continue            
+                    if not setup.check_for_db():
+                        # if not, create it
+                        setup.create_db()
+                    else:  
+                        _setup = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
+                        player = _setup[1]  # Created player object from setup
+                        _setup = _setup[0]  # Boolean whether or not setup was finished (overwrites the tuple, i know...)
+                        if _setup == True:
+                            SETUP = True
+                        else:
+                            continue            
                 PLAY = True       
         if PLAY:    
             # check if game.db exists

@@ -16,7 +16,7 @@ def prompt(player):
     
     valid_actions = system_actions + move_actions + examine_actions + combat_actions
     
-    text.print_player_info(player)
+    text.get_cur_stats(player)
     
     print("What would you like to do?")
     util.spacing(1)
