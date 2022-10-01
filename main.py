@@ -16,7 +16,7 @@ def main():
 
     while RUNNING:
         if MENU:
-            MENU = menu.display()
+            MENU = menu.main_menu()
             if not MENU:
                 while not SETUP:
                     if not setup.check_for_db():
@@ -29,8 +29,10 @@ def main():
                         if _setup == True:
                             SETUP = True
                         else:
-                            continue            
-                PLAY = True       
+                            continue 
+                PLAY = True 
+            else:
+                continue      
         if PLAY:    
             # check if game.db exists
             if not setup.check_for_db():
