@@ -1,12 +1,15 @@
-from distutils.fancy_getopt import wrap_text
 from dictionaries.world import zonemap_dict, solved_places
+from dictionaries.enemy_types import types, levels
 from classes.Utility import Utilities as util
 from textwrap import dedent
 from termcolor import colored as _color
 
 
 class textFunc:
-            
+    
+    
+    @staticmethod
+    # TODO: MOVE THIS TO THE PLAYER CLASS        
     def print_location(player): 
     
         zone_name = zonemap_dict[player.location]['ZONENAME']
@@ -18,6 +21,7 @@ class textFunc:
         util.spacing(2)
 
     
+    @staticmethod
     def welcome_speech(): 
            
         welcome_speeches = [    
@@ -27,7 +31,9 @@ class textFunc:
         for speech in welcome_speeches:
             util.scroll_text(speech, 0.05)
             
-               
+    
+    @staticmethod
+    # TODO: DELETE THIS AND/OR MOVE INTO PLAYER CLASS           
     def print_player_info(player):
         
         player_stats_text = f"""
@@ -48,6 +54,8 @@ class textFunc:
         print(_color(fixed_player_text, 'green'))
         
     
+    @staticmethod
+    # TODO: MOVE THIS TO A NEW 'GAME' CLASS
     def print_bar(curr, max, level, color='white'):
             if level is None:
                 level_text = ""
@@ -73,6 +81,8 @@ class textFunc:
             return bar
 
     
+    @staticmethod
+    # TODO: MOVE THIS TO THE PLAYER CLASS
     def get_cur_stats(player):
         
         health = player.cur_health
@@ -91,21 +101,34 @@ class textFunc:
         stamina_bar = textFunc.print_bar(stamina, max_stamina, None, 'green')
         mana_bar = textFunc.print_bar(mana, max_mana, None, 'blue')
         
-        player_text_header = f"{name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)}"
+        player_text_header = f"* {name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)} *"
         
         colored_header = _color(player_text_header.upper(), 'red', attrs=['bold','dark'])
         colored_gold = _color('GOLD: '+ str(gold), 'yellow', attrs=['bold'])
-        
-        # TODO - find a way to make this look better
-        player_text = dedent(f"""
-        * {colored_header} *
 
-        Health  {health_bar}
-        Stamina {stamina_bar}
-        Mana    {mana_bar}
-        {colored_gold}
-        """)
-        
-        
-        
-        print(player_text)
+        print(f"{colored_header}" + "\n\n" + 
+              f"{health_bar}" + "\n" + 
+              f"{stamina_bar}" + "\n" + 
+              f"{mana_bar}" + "\n" + 
+              f"{colored_gold}" + "\n")
+    
+    
+    @staticmethod
+    # TODO: MOVE THIS TO THE ENEMY CLASS
+    def get_enemy_stats(enemy):
+            
+            health = enemy.health
+            max_health = enemy.max_health
+            enemy_type = enemy.type
+            level = enemy.level
+            
+            health_bar = textFunc.print_bar(health, max_health, level, 'red')
+            
+            enemy_text_header = f"* {enemy.name} | {types[enemy_type]} | Level: {str(level)} *"
+            
+            colored_header = _color(enemy_text_header.upper(), 'red', attrs=['bold','dark'])
+            
+            print(f"{colored_header}" + "\n\n" + 
+                  f"{health_bar}" + "\n")
+            
+    # TODO: MAKE SYSTEM FUNCTION TO COLOR CERTAIN TEXT SUCH AS ERRORS VS NORMAL TEXT

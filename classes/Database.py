@@ -29,7 +29,6 @@ class Database:
         cursor = db.cursor()
         cursor.execute(sql, params)
         db.commit()
-        print(sql)
         db.close()
     
     # create function to get rows from table

@@ -1,10 +1,12 @@
-   
+import pandas as pd
+
 class Menu:
     
     def __init__(self):
         pass
     
-    def display(menu):
+    @staticmethod
+    def display(menu, df=None):
             
             if menu == 'help':
                 
@@ -16,7 +18,7 @@ class Menu:
                 print('*  - Type "actions" for other available actions  *')
                 print('*  - Don\'t die                                  *')
                 print('*                  + Back (1) +                  *')
-                print('*                  + Quit (2) +                  *')
+                print('*                                                *')
                 print('**************************************************')      
             
             elif menu == 'main':
@@ -26,10 +28,37 @@ class Menu:
                 print('*     A text-based RPG that no one asked for!    *')
                 print('**************************************************')
                 print('*                                                *')
-                print('*     Play (1) - Start a new game                *')
-                print('*     Help (2) - View the help menu              *')
-                print('*     Quit (3) - Quit the game                   *')
-                print('*     Debug (4) - Run debug command              *')
+                print('*     (1) - Start a new game                     *')
+                print('*     (2) - View the help menu                   *')
+                print('*     (3) - Quit the game                        *')
+                print('*                                                *')
                 print('*                                                *')
                 print('*                   Version: 0                   *')
                 print('**************************************************')
+
+            elif menu == 'pause':
+                    
+                print('**************************************************')
+                print('*                  ~  pyRPG  ~                   *')
+                print('*     A text-based RPG that no one asked for!    *')
+                print('**************************************************')
+                print('*                                                *')
+                print('*     (1) - View your inventory                  *')
+                print('*     (2) - Save the game                        *')
+                print('*     (3) - Return to the game                   *')
+                print('*                                                *')
+                print('*                   Version: 0                   *')
+                print('**************************************************')
+                
+            elif (menu == 'inventory') and (df.empty == False):
+                
+                # Display the inventory
+                print('**************************************************')
+                print('*                  ~  pyRPG  ~                   *')
+                print('*     A text-based RPG that no one asked for!    *')
+                print('**************************************************')
+                df.style.hide(axis=0)
+                print('**************************************************')
+                print('*     (1) - Return to the game                   *')
+                print('**************************************************')
+                

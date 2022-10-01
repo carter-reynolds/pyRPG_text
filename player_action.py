@@ -1,47 +1,55 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
 from dictionaries.world import zonemap_dict
+import menu
 import time
 import sys
 import encounter as event
 import fight
+from termcolor import colored as _color
 
 
 def prompt(player):
     
-    system_actions = ['quit', 'inventory']
+    PROMPT = True
+    
+    system_actions = ['quit', 'pause', 'actions']
     move_actions = ['move', 'go', 'travel', 'traverse', 'walk']
     examine_actions = ['examine', 'inspect', 'look']
     combat_actions = ['attack', 'run', 'heal']
     
     valid_actions = system_actions + move_actions + examine_actions + combat_actions
     
-    text.get_cur_stats(player)
-    
-    print("What would you like to do?")
-    util.spacing(1)
-    action = input("> ")
-    action = action.lower()
-    
-    while True:
+    while PROMPT:
+        
+        util.clear_term(0)
+        
+        text.get_cur_stats(player)
+        
+        print("What would you like to do?")
+        
+        util.spacing(1)
+        
+        action = input("> ")
+        action = action.lower()
+        
         if action not in valid_actions:
             util.clear_term(0)
-            print("Invalid Action... Try Again.\n")
+            print("Invalid Action.")
+            print(_color("Type 'actions' to see a list of valid actions.", 'red', attrs=['blink', 'bold']))
             util.clear_term(1)
-            prompt(player)
             continue
         elif action in system_actions:
             if action == 'quit':
                 sys.exit()
-            elif action == 'inventory':
-                print(player.inventory)
-                prompt(player)
+            elif action == 'pause':
+                menu.pause_menu(player)
+            elif action == 'actions':
+                pass
         elif action in move_actions:
             player_move(action, player)
-            break
         elif action in examine_actions:
-            player_examine(action, player)
-            break 
+            player_examine(action, player) 
         elif action in combat_actions():
             pass
 
@@ -94,19 +102,21 @@ def movement_handler(destination, player):
         player.location = destination
         player.alter_stamina(1, 0)
         util.scroll_text("Traveling....", 0.05)
-        encounter = event.encounter_check(destination)
+        encounter_enemy = event.encounter_check(destination)
         input("Press Enter/Return to continue.")
-        if encounter == False:
+        
+        if not encounter_enemy:
+            
             util.clear_term(0)
             util.scroll_text(("You have arrived at " + destination + "."), 0.05)
             util.clear_term(2)
             prompt(player)
         else:
             util.clear_term(0)
-            print("You have encountered a " + encounter)
             fight.fight(player)
             util.clear_term(2)
             prompt(player)
+            
         util.clear_term(2)
         util.scroll_text(("You have arrived at " + destination + "."), 0.05)
         util.clear_term(2)
@@ -123,11 +133,3 @@ def player_examine(action, player):
         util.spacing(2)
         input("Press Enter/Return to continue.")
         prompt(player)
-
-def player_combat(action):
-    if action == 'attack':
-        pass
-    elif action == 'run':
-        pass
-    elif action == 'heal':
-        pass

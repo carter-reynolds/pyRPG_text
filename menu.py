@@ -1,43 +1,103 @@
-from classes.MenuTexts import Menu
+from classes.MenuTexts import Menu as menuText
 from classes.Utility import Utilities as util
 from classes.Enemies import Enemy
-import setup
+from classes.Player import Player
 import sys
 
 
 
-def display(): # Load title screen
+
+def main_menu(): # Load title screen
     
-    util.clear_term(0)
-    Menu.display(menu='main')
+    MAIN = True
     
-    MENU = True
+    while MAIN:
+        
+        util.clear_term(0)
+        
+        menuText.display(menu='main', df=None)
+        
+        option = input('> ')
     
-    while MENU:
+        try:
+            option_ = int(option)
+            if option_ == 1:
+                return False
+            elif option_ == 2:
+                help_menu()
+            elif option_ == 3:
+                return sys.exit()
+            else:
+                continue
+        except ValueError as error:
+            util.clear_term(0)
+            print("error: enter in a number")
+            util.clear_term(2)
+            continue
+               
+    return False
+
+        
+def help_menu():
+    
+    HELP = True
+    
+    while HELP:
+        
+        util.clear_term(0)
+        
+        menuText.display(menu='help')
         
         option = input('> ')
         
         if option == '1':
-            break
-        elif option == '2':
-            help_menu()
-        elif option == '3':
-            return sys.exit()
-        elif option == '4': # Debug
+            break 
+        else:
             continue
+    
+    return False
+    
+        
+def pause_menu(player):
+    
+    PAUSE = True
+    INVENTORY = False
+    
+    util.clear_term(0)
+    menuText.display(menu='pause')
+    
+    while PAUSE:
+        
+        option = input('> ')
+        
+        if option == '1':
+            
+            INVENTORY = True
+            
+            inventory = player.inventory
+        
+            inventory_df = util.build_dataframe(inventory, mode=1)
+            
+            util.clear_term(0)
+            menuText.display(menu='inventory', df=inventory_df)
+            
+            while INVENTORY:
+                
+                option = input('> ')
+                
+                if option == '1':
+                    INVENTORY = False
+                else:
+                    continue
+            break
+        
+        elif option == '2':
+            break
+        elif option == '3':
+            break
         else:
             continue
         
     return False
-        
-def help_menu():
-    util.clear_term(0)   
-    Menu.display(menu='help')
-    
-    while True:
-        option = input('> ')
-        if option == '1':
-            display()
-        elif option == '2':
-            return sys.exit()
-            
+
+

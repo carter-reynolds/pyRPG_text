@@ -8,19 +8,13 @@ from classes.Database import Database as db
 from classes.Utility import Utilities as util
 import random as rand
 
-def encounter_check(location):
-    
-    #for valid_enemy in zonemap_enemies[location]:
-        #enemy = valid_enemy
-    enemy = "Bandit"
+def encounter_check(location=""):
     
     random = rand.randint(0, 100)
         
     if random <= 50:
         print("Enemy encountered!")
-        return enemy
+        return True
     else:
-        print(random)
-        del enemy
         return False
 
