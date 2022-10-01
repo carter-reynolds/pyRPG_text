@@ -16,7 +16,8 @@ class Enemy:
         
         # These are set by the set_stats method after self.level is set  
         self.gold = 0       
-        self.health = 0     
+        self.health = 0
+        self.max_health = 0     
         self.defense = 0    
         self.attack = 0    
         self.loot = self.assign_random_loot(type_, level)
@@ -92,50 +93,39 @@ class Enemy:
         
         if level == 0:
             self.health = rand.randint(1, 10)
+            self.max_health = self.health
             self.defense = rand.randint(1, 10)
             self.attack = rand.randint(1, 10)
             self.gold = rand.randint(1, 10) * 1
         elif level == 1:
             self.health = rand.randint(10, 20)
+            self.max_health = self.health
             self.defense = rand.randint(10, 20)
             self.attack = rand.randint(10, 20)
             self.gold = rand.randint(10, 20) * 2
         elif level == 2:
             self.health = rand.randint(20, 30)
+            self.max_health = self.health
             self.defense = rand.randint(20, 30)
             self.attack = rand.randint(20, 30)
             self.gold = rand.randint(20, 30) * 3
         elif level == 3:
             self.health = rand.randint(30, 40)
+            self.max_health = self.health
             self.defense = rand.randint(30, 40)
             self.attack = rand.randint(30, 40)
             self.gold = rand.randint(30, 40) * 4
         else:
             self.health = None
+            self.max_health = None
             self.defense = None
             self.attack = None
             self.gold = None
         
-        
       
-    # Display all enemy stats
-    def display_stats(self):
-        
-        print(textwrap.dedent(f""" 
-        Name: {self.name}
-        Type: {types[self.type]}
-        Level: {self.level}
-        Health: {self.health}
-        Defense: {self.defense}
-        Attack: {self.attack}
-        Gold: {self.gold}
-        Loot: {self.loot}
-        """))
-        
-        
     def take_damage(self, damage):
         
-        damage = damage - self.defense
+        damage = damage - int(self.defense / 1.33)  # Damage is reduced by 1/3 of defense
         
         if damage < 0:
             damage = 0
@@ -143,13 +133,15 @@ class Enemy:
         else:
             self.health -= damage
             print(f"You deal {damage} damage!\n{self.name} has {self.health} health left!")
-            self.check_defeated()
-        
-    def check_defeated(self):
+
+       
+    def _defeated(self):
         if self.health <= 0:
+            print("Enemy Defeated!")
             self.defeated = 1
             return True
         else:
+            print("Enemy still alive!")
             return False
         
         

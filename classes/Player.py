@@ -10,10 +10,10 @@ class Player:
         self.weapon = ''
         self.location = 'B2'
         
-        self.level = 1
+        self.level = 0
         self.xp = 0
         
-        self.inventory = []
+        self.inventory = ['Test', 'Test', 'Test', 'Test 2']
         
         self.base_health = 0
         self.max_health = 0
