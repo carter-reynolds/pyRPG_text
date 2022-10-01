@@ -72,6 +72,8 @@ def fight(player):
                             break
                         else:
                             continue
+                else:
+                    continue            
             
         if RAN_AWAY == True:
             LOOTING = False                 
