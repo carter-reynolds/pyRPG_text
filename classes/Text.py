@@ -1,4 +1,4 @@
-from dictionaries.world import zonemap_dict, solved_places
+from dictionaries.world import zonemap_dict
 from dictionaries.enemy_types import types, levels
 from classes.Utility import Utilities as util
 from textwrap import dedent

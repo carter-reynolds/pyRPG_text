@@ -1,6 +1,6 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
-from dictionaries.world import zonemap_dict
+from dictionaries.world import zonemap_dict, zonemap_meta
 import menu
 import time
 import sys
@@ -74,19 +74,19 @@ def player_move(action, player):
             continue
         if dest in movement_directions:
             if dest in ['up', 'north']:
-                destination = zonemap_dict[player.location]['UP']
+                destination = zonemap_dict[player.location]['MOVEMENT']['UP']
                 movement_handler(destination, player)
                 break
             elif dest in ['down', 'south']:
-                destination = zonemap_dict[player.location]['DOWN']
+                destination = zonemap_dict[player.location]['MOVEMENT']['DOWN']
                 movement_handler(destination, player)
                 break
             elif dest in ['left', 'west']:
-                destination = zonemap_dict[player.location]['LEFT']
+                destination = zonemap_dict[player.location]['MOVEMENT']['LEFT']
                 movement_handler(destination, player)
                 break
             elif dest in ['right', 'east']:
-                destination = zonemap_dict[player.location]['RIGHT']
+                destination = zonemap_dict[player.location]['MOVEMENT']['RIGHT']
                 movement_handler(destination, player)
                 break
             
@@ -126,7 +126,7 @@ def player_examine(action, player):
     
     util.clear_term(0)
     
-    if zonemap_dict[player.location]['SOLVED'] is True:
+    if zonemap_meta[player.location]['solved'] is True:
         print("You have solved this zone and there is nothing further to examine!")
     else:
         util.scroll_text((zonemap_dict[player.location]['ZONENAME'] + ':\n' + zonemap_dict[player.location]['EXAMINATION']), 0.05)
