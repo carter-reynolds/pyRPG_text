@@ -129,19 +129,22 @@ class Enemy:
         
         if damage < 0:
             damage = 0
-            print("The {}'s defense was too strong!".format(self.name))
+            message = "The {}'s defense was too strong!".format(self.name)
+            return False, message
         else:
             self.health -= damage
-            print(f"You deal {damage} damage!\n{self.name} has {self.health} health left!")
+            message = f"You deal {damage} damage!\n{self.name} has {self.health} health left!"
+            if self.health < 0:
+                self.health = 0
+                
+            return True, message
 
        
     def _defeated(self):
         if self.health <= 0:
-            print("Enemy Defeated!")
             self.defeated = 1
             return True
         else:
-            print("Enemy still alive!")
             return False
         
         

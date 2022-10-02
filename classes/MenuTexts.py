@@ -50,15 +50,14 @@ class Menu:
                 print('*                   Version: 0                   *')
                 print('**************************************************')
                 
-            elif (menu == 'inventory') and (df.empty == False):
+            elif (menu == 'inventory'):
                 
-                # Display the inventory
-                print('**************************************************')
-                print('*                  ~  pyRPG  ~                   *')
-                print('*     A text-based RPG that no one asked for!    *')
-                print('**************************************************')
-                df.style.hide(axis=0)
-                print('**************************************************')
-                print('*     (1) - Return to the game                   *')
-                print('**************************************************')
+                print("Items  |  Quantity")
+                
+                for item in df:
+                    print(f"{item} x{df[item]}")
+                    
+                print('Enter (1) to return to the game')
+
+            
                 

@@ -103,24 +103,42 @@ def movement_handler(destination, player):
         player.alter_stamina(1, 0)
         util.scroll_text("Traveling....", 0.05)
         encounter_enemy = event.encounter_check(destination)
-        input("Press Enter/Return to continue.")
         
         if not encounter_enemy:
-            
-            util.clear_term(0)
-            util.scroll_text(("You have arrived at " + destination + "."), 0.05)
+            util.clear_term()
+            util.scroll_text(("You have arrived at " + zonemap_dict[destination]['ZONENAME'] + "."), 0.05)
             util.clear_term(2)
             prompt(player)
         else:
-            util.clear_term(0)
+            util.clear_term()
             fight.fight(player)
+            
+            if player.cur_health <= 0:
+                util.clear_term()
+                util.scroll_text("You have died!", 0.05)
+                util.scroll_text("Pay 50 gold to revive?", 0.05, 2)
+                answer = input("(Y/N)\n>")
+                answer = answer.lower()
+                
+                if answer == 'y':
+                    if player.gold >= 50:
+                        player.gold -= 50
+                        player.health = player.max_health
+                        player.stamina = player.max_stamina
+                        util.clear_term()
+                        util.scroll_text("You have been revived!", 0.05)
+                        util.clear_term(2)
+                        prompt(player)
+                    else:
+                        util.clear_term()
+                        util.scroll_text("You have chosen to die. Goodbye.", 0.05)
+                        util.clear_term(2)
+                        player.end = True
+                        menu.main_menu()
+            util.clear_term(2)
+            util.scroll_text(("You have arrived at " + zonemap_dict[destination]['ZONENAME'] + "."), 0.05)
             util.clear_term(2)
             prompt(player)
-            
-        util.clear_term(2)
-        util.scroll_text(("You have arrived at " + destination + "."), 0.05)
-        util.clear_term(2)
-        text.print_location(player)
     
 def player_examine(action, player):
     

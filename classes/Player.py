@@ -1,4 +1,5 @@
 from classes.Database import Database as db
+import loot_table
     
 class Player:
     def __init__(self, name, role):
@@ -13,7 +14,7 @@ class Player:
         self.level = 0
         self.xp = 0
         
-        self.inventory = ['Test', 'Test', 'Test', 'Test 2']
+        self.inventory = Player.construct_inventory_items()
         
         self.base_health = 0
         self.max_health = 0
@@ -61,7 +62,7 @@ class Player:
             self.cur_defense = self.max_defense
             self.cur_attack = self.max_attack
             self.cur_carry_weight = self.max_carry_weight
-            self.weapon = 'Dulled Short Sword'     
+            self.weapon = ''     
         elif role == 'Mage':
             self.max_health = 85
             self.max_mana = 100
@@ -74,7 +75,7 @@ class Player:
             self.cur_defense = self.max_defense
             self.cur_attack = self.max_attack
             self.cur_carry_weight = self.max_carry_weight
-            self.weapon = 'Cracked Oak Staff'
+            self.weapon = ''
         self.write_player_data()
         
                    
@@ -116,7 +117,20 @@ class Player:
                 
     def get_player(self):
         player = self
-        
         return player
+    
+    def construct_inventory_items():
+        inventory_dict = {}
+        
+        inventory_list = loot_table.get_full_loot_table()
+        
+        for item in inventory_list:
+            inventory_dict[item] = 0
+            
+        print(inventory_dict)
+        
+        return inventory_dict
+    
+    
                 
 

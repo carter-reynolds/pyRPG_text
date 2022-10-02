@@ -7,11 +7,14 @@ import player_action as action
 import textwrap
 import os
 import loot_table
+import sys
 
 
 def main_game_loop(player):
     while player.end == False:  
         action.prompt(player)
+    else:
+        sys.quit()
         
 # if game.db exists return true else return false
 def check_for_db():

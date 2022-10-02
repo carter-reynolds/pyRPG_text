@@ -3,8 +3,6 @@
 
 import menu
 import setup
-from classes.Database import Database as db
-
 
 def main():
     

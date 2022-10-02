@@ -75,11 +75,9 @@ def pause_menu(player):
             INVENTORY = True
             
             inventory = player.inventory
-        
-            inventory_df = util.build_dataframe(inventory, mode=1)
             
             util.clear_term(0)
-            menuText.display(menu='inventory', df=inventory_df)
+            menuText.display(menu='inventory', df=inventory)
             
             while INVENTORY:
                 

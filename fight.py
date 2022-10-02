@@ -5,6 +5,7 @@ import random as rand
 import player_action as action
 from classes.Utility import Utilities as util
 from classes.Text import textFunc as text
+from termcolor import colored as _color
 
 def fight(player):
     
@@ -39,19 +40,28 @@ def fight(player):
             pass
         else:
             
+            message = ""
+            
             while PLAYER_ATTACKING:
+                
+                attack_actions = ["attack", "hit", "fight", "kill", "run"]
                 
                 util.clear_term(0)
                 
                 text.get_enemy_stats(enemy) # Print the enemy stats
-            
-                action = input("What do you want to do? ")
-            
-                attack_actions = ["attack", "hit", "fight", "kill", "run"]
-            
+                print()
+                text.get_cur_stats(player) # Print the player stats
+                
+                util.spacing(1)
+                
+                print(message, '\n')
+                
+                action = input("What do you want to do?\n>")
+                action = action.lower()
+                
                 if action in attack_actions: 
                     if action != 'run':
-                        print(f"You attempt to {action} the enemy!")
+                        pass
                     elif action == 'run':
                         print("You ran away!")
                         PLAYER_ATTACKING = False
@@ -62,10 +72,17 @@ def fight(player):
                 
                     player_damage_done = enemy.take_damage(damage) 
                 
-                    if not player_damage_done:
+                    if not player_damage_done[0]: # If damage was not done, print the reason 
                         player.cur_health -= (enemy.attack - player.cur_defense)
+                        message = player_damage_done[1]
+                        
                     else:
+                        
+                        message = player_damage_done[1] # If damage was done, print the message
+                        
                         if enemy._defeated():
+                            util.clear_term(0)
+                            util.scroll_text(_color(f'You defeated {enemy.name}!\n', 'green'), 0.05)
                             PLAYER_ATTACKING = False
                             ENEMY_ATTACKING = False
                             RAN_AWAY = False
@@ -81,7 +98,7 @@ def fight(player):
             LOOTING = True
         
         while LOOTING:
-            action = input("Do you want to loot the enemy? ")
+            action = input("Do you want to loot the enemy?\n> ")
             
             loot_actions = ["yes", "y", "loot", "take"]
             
@@ -89,19 +106,31 @@ def fight(player):
                 print("You loot the enemy!")
                 player.gold += enemy.gold
                 
-                for _loot in enemy.loot:
-                    player.inventory.append(_loot)
-                LOOTING = False
+                util.clear_term(2, f'You gained {str(enemy.gold)} gold!')
+                util.clear_term(2, "You found the following items:\n")
+                
+                for item in enemy.loot:
+                    
+                    print('\u25BA ' + item + '\n')
+                    
+                    for key, value in player.inventory.items():
+                        if key == item:
+                            player.inventory[key] += 1
+                        else:
+                            player.inventory[item] = 1
+                input("Press enter to continue...")
+                
+                if input:             
+                    LOOTING = False
+                    break
             else:
                 print("You leave the enemy alone.")
                 LOOTING = False
                 
         return None
             
-   
-
                         
-                    
+                   
                 
                 
                 
