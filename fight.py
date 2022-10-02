@@ -133,15 +133,13 @@ def fight(player):
                     # Check for the item already existing in the player's inventory dictionary
                     if item in player.inventory.keys():
                         player.inventory[item] += 1 # If it does, increment the value by 1
-                        print(f"{item} added to inventory - Quantity: {player.inventory[item]}")
                     else:
                         '''
-                        The following conditional statement shouldn't ever run unless the player reloads a game
-                        and we added a new object to the game, it will add the new object to the player's inventory
-                        when they loot the enemy and find the new item.
+                            The following conditional statement shouldn't ever run unless the player reloads a game
+                            and we added a new object to the game, it will add the new object to the player's inventory
+                            when they loot the enemy and find the new item.
                         '''
                         player.inventory[item] = 1 # If it doesn't, add it to the dictionary with a value of 1 
-                        print(f"{item} added to inventory and set quantity to 1 explicitly")
                         
                 input("Press enter to continue...")
                 
