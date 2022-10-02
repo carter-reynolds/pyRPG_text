@@ -55,32 +55,5 @@ class Utilities:
     def timer():
         cur = time.time()
         return cur
-    
-    
-    @staticmethod
-    def build_dataframe(_list=[], mode=0):
-        """Builds a dataframe from a list. Supports two modes:
 
-        Args:
-            _list (list): A list to be converted to a dataframe
-            mode (int, optional): Mode 0 - just converts a list to a dataframe
-            mode (int, optional): Mode 1 - converts a list and totals the values to a new column
-
-        Returns:
-            df_0: Dataframe of list items with index
-            df_1: Dataframe of list items deduped and totaled
-        """        
-        if mode == 0:
-            df_0 = pd.DataFrame(_list)
-            return df_0
-        elif mode == 1:
-            # create a dataframe from the list without index
-            
-            df_1 = pd.DataFrame({'Item':_list})
-            df_1 = df_1.groupby(df_1.columns.tolist(), as_index=True).size()
-            print(df_1)
-            return df_1
-        else:
-            pass
-        
     
