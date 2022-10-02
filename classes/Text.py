@@ -57,10 +57,6 @@ class textFunc:
     @staticmethod
     # TODO: MOVE THIS TO A NEW 'GAME' CLASS
     def print_bar(curr, max, level, color='white'):
-            if level is None:
-                level_text = ""
-            else:
-                level_text = " Lvl. " + str(level)
 
             # all bars are 20 chars long, scale the given values
             bar_width = 20
@@ -104,7 +100,7 @@ class textFunc:
         player_text_header = f"❱❱❱ {name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)} ❰❰❰"
         
         colored_header = _color(player_text_header.upper(), 'red', attrs=['bold'])
-        colored_gold = _color('\u26C1  '+ str(gold), 'yellow', attrs=['bold'])
+        colored_gold = _color('\u26C1 '+ str(gold), 'yellow')
 
         print(f"{colored_header}" + "\n\n" + 
               _color(" HEALTH ", 'white', 'on_red', attrs=['bold']) + f"{health_bar}" + "\n" + 
@@ -126,7 +122,7 @@ class textFunc:
             
             enemy_text_header = f"* {enemy.name} | {types[enemy_type]} | Level: {str(level)} *"
             
-            colored_header = _color(enemy_text_header.upper(), 'red', attrs=['bold','dark'])
+            colored_header = _color(enemy_text_header.upper(), 'red', attrs=['bold'])
             
             print(f"{colored_header}" + "\n\n" + 
                   f"{health_bar}" + "\n")

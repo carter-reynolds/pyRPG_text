@@ -38,13 +38,6 @@ def main():
                 setup.create_db()
             else:          
                 setup.main_game_loop(player)  
+
           
 main()
-
-
-
-       
-
-      
-   
-        
