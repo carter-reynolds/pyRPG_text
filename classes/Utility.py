@@ -2,12 +2,21 @@ import time
 import os
 import sys
 import random as rand
-import pandas as pd
 
 class Utilities:
     
     @staticmethod
     def clear_term(delay=0, message='', func=None):
+        """Clears the terminal screen
+
+        Args:
+            delay (int, optional): Delay in seconds. Defaults to 0.
+            message (str, optional): Message to display. Defaults to ''.
+            func (function, optional): Function to call. Defaults to None.
+
+        Returns:
+            None | func(): Calls function if specified
+        """
         
         time.sleep(delay)
         
@@ -31,28 +40,39 @@ class Utilities:
        
     
     @staticmethod        
-    def spacing(amount):
+    def spacing(amount=1):
+        """Adds spacing between lines of text
+
+        Args:
+            amount (int, optional): The number of lines to skip. Defaults to 1.
+        """
         for x in range(amount):
             print('')
     
     
     @staticmethod        
     def scroll_text(text, speed, delay=0):
+        """Scrolls text across the screen
+
+        Args:
+            text (str): The text to scroll
+            speed (float|int): The speed at which the text scrolls
+            delay (int, optional): The delay, in seconds, before the text scrolls. Defaults to 0.
+        """
         time.sleep(delay)
         for char in text:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(speed)
-    
-    
-    @staticmethod        
-    def excluded_random(r1, r2, exclude_list):
-        print("Excluded random called: ", r1, r2, exclude_list)
-        return rand.choice([i for i in range(r1,r2) if i not in [exclude_list]])
-    
+ 
     
     @staticmethod
     def timer():
+        """Returns the current time in seconds
+
+        Returns:
+            cur (float): The current time in seconds
+        """
         cur = time.time()
         return cur
 
