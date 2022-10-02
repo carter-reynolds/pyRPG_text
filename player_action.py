@@ -13,86 +13,112 @@ def prompt(player):
     
     PROMPT = True
     
+    # Define actions by type that can be used in the game
     system_actions = ['quit', 'pause', 'actions']
-    move_actions = ['move', 'go', 'travel', 'traverse', 'walk']
+    move_actions = ['move', 'go', 'travel', 'traverse', 'walk', 'run', 'head']
     examine_actions = ['examine', 'inspect', 'look']
-    combat_actions = ['attack', 'run', 'heal']
+    special_actions = ['rest', 'sit']
     
-    valid_actions = system_actions + move_actions + examine_actions + combat_actions
+    # Combine them all together now so we can easily check all of them during input
+    valid_actions = system_actions + move_actions + examine_actions + special_actions
+    
+    message = "" # This will be used to display messages to the player
+    
     
     while PROMPT:
         
         util.clear_term(0)
         
-        text.get_cur_stats(player)
+        text.get_cur_stats(player) # Prints the current stats of the player such as health, stamina, etc.
         
-        print("What would you like to do?")
+        print(message)
         
         util.spacing(1)
         
-        action = input("> ")
+        action = input("What would you like to do?\n> ")
         action = action.lower()
         
         if action not in valid_actions:
             util.clear_term(0)
             print("Invalid Action.")
-            print(_color("Type 'actions' to see a list of valid actions.", 'red', attrs=['blink', 'bold']))
-            util.clear_term(1)
+            print(_color("Type 'actions' to see a list of valid actions.", 'red', attrs=['bold', 'underline']))
+            util.clear_term(2)
             continue
-        elif action in system_actions:
-            if action == 'quit':
-                sys.exit()
-            elif action == 'pause':
-                menu.pause_menu(player)
-            elif action == 'actions':
-                pass
-        elif action in move_actions:
-            player_move(action, player)
-        elif action in examine_actions:
-            player_examine(action, player) 
-        elif action in combat_actions():
-            pass
+        else:
+            if action in system_actions:
+                if action == 'quit':
+                    sys.exit()
+                elif action == 'pause':
+                    menu.pause_menu(player)
+                elif action == 'actions':
+                    menu.actions_menu(valid_actions)
+                    
+            elif action in move_actions:
+                player_move(action, player)
+                
+            elif action in examine_actions:
+                player_examine(action, player)
+                
+            elif action in special_actions:
+                if (action == 'rest') or (action == 'sit'):
+                    message = check_can_rest(player, action)
+                    continue
+                
+def check_can_rest(player, action):
+    
+    if action == 'rest':
+        
+        # Check if the player is in a zone that can be rested in
+        PLAYER_CAN_REST = zonemap_meta[player.location]['can_rest']
+          
+        if PLAYER_CAN_REST is True:
+            message = "You have rested and recovered your health and stamina."
+            player.rest()  
+        else:
+            message = "You cannot rest here! You can safely 'sit' to recover some stamina, however."
+    
+    # We don't want the player to get stranded in a zone with no way to recover stamina, so we'll allow them to sit anywhere
+    elif action == 'sit':
+        message = "You sit down and relax for a moment. Gain 1 stamina."
+        player.alter_stamina(1, 1) # Eventually there will be a modifier for this, but for now it's just 1
+        
+    return message
+        
+                        
 
                     
 def player_move(action, player):
     
-    util.clear_term(0)
+    util.clear_term()
     
     movement_directions = ['up', 'down', 'left', 'right', 'north', 'south', 'east', 'west']
     
-    ask = "What direction would you like to move in?"
-    
-    print(ask + '\n')
-    dest = input('> ')
+    dest = input(f"What direction would you like to {action}?\n> ")
+    dest = dest.lower()
     
     while True:
         if dest not in movement_directions:
-            util.clear_term(0)
+            util.clear_term()
             print('Invalid Direction!')
             util.clear_term(2)
             player_move(action, player)
-            continue
-        if dest in movement_directions:
+        else:
             if dest in ['up', 'north']:
                 destination = zonemap_dict[player.location]['MOVEMENT']['UP']
                 movement_handler(destination, player)
-                break
             elif dest in ['down', 'south']:
                 destination = zonemap_dict[player.location]['MOVEMENT']['DOWN']
                 movement_handler(destination, player)
-                break
             elif dest in ['left', 'west']:
                 destination = zonemap_dict[player.location]['MOVEMENT']['LEFT']
                 movement_handler(destination, player)
-                break
             elif dest in ['right', 'east']:
                 destination = zonemap_dict[player.location]['MOVEMENT']['RIGHT']
                 movement_handler(destination, player)
-                break
             
 def movement_handler(destination, player):
     
-    util.clear_term(0)
+    util.clear_term()
     
     if destination == '':
         print('Unable to move this direction!')
@@ -100,49 +126,69 @@ def movement_handler(destination, player):
         prompt(player)
     else:
         player.location = destination
-        player.alter_stamina(1, 0)
+        player.alter_stamina(10, 0)
         util.scroll_text("Traveling....", 0.05)
         encounter_enemy = event.encounter_check(destination)
         
         if not encounter_enemy:
-            util.clear_term()
+            util.clear_term(2)
             util.scroll_text(("You have arrived at " + zonemap_dict[destination]['ZONENAME'] + "."), 0.05)
             util.clear_term(2)
             prompt(player)
         else:
-            util.clear_term()
+            util.clear_term(2)
+            util.scroll_text("You have encountered an enemy!", 0.05)
+            util.clear_term(2)
             fight.fight(player)
             
-            if player.cur_health <= 0:
-                util.clear_term()
-                util.scroll_text("You have died!", 0.05)
-                util.scroll_text("Pay 50 gold to revive?", 0.05, 2)
-                answer = input("(Y/N)\n>")
-                answer = answer.lower()
-                
-                if answer == 'y':
-                    if player.gold >= 50:
-                        player.gold -= 50
-                        player.health = player.max_health
-                        player.stamina = player.max_stamina
+            REVIVE = False
+            
+            while not REVIVE:
+                # Once the fight finishes, figure out if the player died and offer a revive or quit option.
+                if player.cur_health <= 0:
+                    util.clear_term()
+                    util.scroll_text("You have died!", 0.05)
+                    util.scroll_text("Pay 50 gold to revive?", 0.05, 2)
+                    answer = input("(Y/N)\n>")
+                    answer = answer.lower()
+                    
+                    if answer == 'y':
+                        if player.gold >= 50:
+                            player.gold -= 50
+                            player.health = player.max_health
+                            player.stamina = player.max_stamina
+                            util.clear_term()
+                            util.scroll_text("You have been revived!", 0.05)
+                            util.clear_term(2)
+                            REVIVE = True
+                        else:
+                            util.clear_term()
+                            util.scroll_text("You don't have enough gold. Goodbye cruel world.", 0.05)
+                            util.clear_term(2)
+                            player.end = True
+                            menu.main_menu()
+                    elif answer == 'n':
                         util.clear_term()
-                        util.scroll_text("You have been revived!", 0.05)
-                        util.clear_term(2)
-                        prompt(player)
-                    else:
-                        util.clear_term()
-                        util.scroll_text("You have chosen to die. Goodbye.", 0.05)
+                        util.scroll_text("You have died...", 0.05)
                         util.clear_term(2)
                         player.end = True
                         menu.main_menu()
-            util.clear_term(2)
+                    else:
+                        util.clear_term()
+                        util.scroll_text("Invalid Input!", 0.05)
+                        util.clear_term(2)
+                        continue
+                else:
+                    REVIVE = True
+                
+            util.clear_term()
             util.scroll_text(("You have arrived at " + zonemap_dict[destination]['ZONENAME'] + "."), 0.05)
             util.clear_term(2)
             prompt(player)
     
 def player_examine(action, player):
     
-    util.clear_term(0)
+    util.clear_term()
     
     if zonemap_meta[player.location]['solved'] is True:
         print("You have solved this zone and there is nothing further to examine!")
@@ -151,3 +197,4 @@ def player_examine(action, player):
         util.spacing(2)
         input("Press Enter/Return to continue.")
         prompt(player)
+

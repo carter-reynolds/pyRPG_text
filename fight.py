@@ -1,13 +1,18 @@
-from classes.Player import Player
 from classes.Enemies import Enemy
-from classes.Database import Database as db
 import random as rand
-import player_action as action
 from classes.Utility import Utilities as util
 from classes.Text import textFunc as text
 from termcolor import colored as _color
 
 def fight(player):
+    
+    """Fight a random enemy
+    
+    # TODO: This eventually needs massive clean up and refactoring
+
+    Returns:
+        None
+    """
     
     RAN_AWAY = False # Used to break out of the fight loop
     
@@ -44,41 +49,51 @@ def fight(player):
             
             while PLAYER_ATTACKING:
                 
-                attack_actions = ["attack", "hit", "fight", "kill", "run"]
+                attack_actions = ["attack", "hit", "fight", "kill", "run", "heal"]
                 
                 util.clear_term(0)
                 
                 text.get_enemy_stats(enemy) # Print the enemy stats
-                print()
+                util.spacing(1)
                 text.get_cur_stats(player) # Print the player stats
                 
                 util.spacing(1)
                 
                 print(message, '\n')
                 
-                action = input("What do you want to do?\n>")
+                action = input("What do you want to do?\n> ")
                 action = action.lower()
                 
                 if action in attack_actions: 
                     if action != 'run':
-                        pass
+                        if action == 'heal':
+                            player_try_heal = player.use_health_potion() # Try to heal the player
+                            
+                            # The above returns a tuple: (success bool, message)
+                            player_did_heal = player_try_heal[0] # The first value is a boolean that tells us if the player was able to heal
+                            message = player_try_heal[1] # The second value is a string that tells us what happened
+                            continue
+                        else:
+                            pass
                     elif action == 'run':
                         print("You ran away!")
                         PLAYER_ATTACKING = False
                         RAN_AWAY = True
                         break
                     
+                    
                     damage = player.cur_attack 
                 
                     player_damage_done = enemy.take_damage(damage) 
                 
-                    if not player_damage_done[0]: # If damage was not done, print the reason 
+                    if not player_damage_done[0]: # If damage was not done, print the reason and take damage
                         player.cur_health -= (enemy.attack - player.cur_defense)
                         message = player_damage_done[1]
                         
                     else:
                         
                         message = player_damage_done[1] # If damage was done, print the message
+                        player.alter_stamina(5, 0) # Decrease stamina by 5 since we attacked
                         
                         if enemy._defeated():
                             util.clear_term(0)
@@ -109,15 +124,25 @@ def fight(player):
                 util.clear_term(2, f'You gained {str(enemy.gold)} gold!')
                 util.clear_term(2, "You found the following items:\n")
                 
+                # TODO: Player still needs to gain experience from defeating an enemy
+                
                 for item in enemy.loot:
                     
                     print('\u25BA ' + item + '\n')
                     
-                    for key, value in player.inventory.items():
-                        if key == item:
-                            player.inventory[key] += 1
-                        else:
-                            player.inventory[item] = 1
+                    # Check for the item already existing in the player's inventory dictionary
+                    if item in player.inventory.keys():
+                        player.inventory[item] += 1 # If it does, increment the value by 1
+                        print(f"{item} added to inventory - Quantity: {player.inventory[item]}")
+                    else:
+                        '''
+                        The following conditional statement shouldn't ever run unless the player reloads a game
+                        and we added a new object to the game, it will add the new object to the player's inventory
+                        when they loot the enemy and find the new item.
+                        '''
+                        player.inventory[item] = 1 # If it doesn't, add it to the dictionary with a value of 1 
+                        print(f"{item} added to inventory and set quantity to 1 explicitly")
+                        
                 input("Press enter to continue...")
                 
                 if input:             

@@ -56,6 +56,24 @@ def help_menu():
             continue
     
     return False
+
+def actions_menu(action_list):
+    ACTIONS = True
+    
+    util.clear_term()
+    
+    while ACTIONS:
+        
+        for action in action_list:
+            print(action)
+            
+        option = input('Press enter to continue')
+        
+        break
+    
+    return
+    
+        
     
         
 def pause_menu(player):

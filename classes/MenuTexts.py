@@ -1,3 +1,4 @@
+from termcolor import colored as _color
 
 class Menu:
     
@@ -51,11 +52,15 @@ class Menu:
                 
             elif (menu == 'inventory'):
                 
-                print("Items  |  Quantity")
+                print(f"{_color('Items', 'red', attrs=['bold'])}  |  {_color('Quantity', 'yellow', attrs=['bold'])}")
+                
                 
                 for item in df:
-                    if df[item] > 0: # Only display items that have a quantity greater than 0
-                        print(f"{item}    x{df[item]}")
+                    
+                    quantity = df[item] #
+                    
+                    if quantity > 0: # Only display items that have a quantity greater than 0
+                        print(f"{_color(item, 'red')} {_color('x' + str(quantity), 'yellow')}")
                     else:
                         pass
                     

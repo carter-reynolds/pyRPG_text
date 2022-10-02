@@ -78,6 +78,25 @@ class Player:
             self.weapon = ''
         self.write_player_data()
         
+    def rest(self):
+        self.cur_stamina = self.max_stamina
+        self.cur_health = self.max_health
+        
+    
+    def use_health_potion(self):
+        if self.cur_health == self.max_health:
+            message = 'You are already at full health.'
+            return False, message
+        else:
+            if self.inventory['Health Potion'] > 0:
+                message = 'You use a health potion and gain 25 health.'
+                self.cur_health + 25
+                return True, message
+            else:
+                message = print('You do not have any health potions.')
+                return False, message
+       
+        
                    
     def alter_stamina(self, amount, direction):
         if direction == 0:
