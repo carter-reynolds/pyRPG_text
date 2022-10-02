@@ -1,4 +1,3 @@
-import pandas as pd
 
 class Menu:
     
@@ -55,7 +54,10 @@ class Menu:
                 print("Items  |  Quantity")
                 
                 for item in df:
-                    print(f"{item} x{df[item]}")
+                    if df[item] > 0: # Only display items that have a quantity greater than 0
+                        print(f"{item}    x{df[item]}")
+                    else:
+                        pass
                     
                 print('Enter (1) to return to the game')
 
