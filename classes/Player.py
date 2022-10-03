@@ -88,11 +88,12 @@ class Player:
             message = 'You are already at full health.'
             return False, message
         else:
-            if self.inventory['Health Potion'] > 0:
-                message = 'You use a health potion and gain 25 health.'
-                self.cur_health + 25
-                return True, message
-            else:
+            try:
+                if self.inventory['Health Potion'] > 0:
+                    message = 'You use a health potion and gain 25 health.'
+                    self.cur_health + 25
+                    return True, message
+            except KeyError:
                 message = print('You do not have any health potions.')
                 return False, message
        
