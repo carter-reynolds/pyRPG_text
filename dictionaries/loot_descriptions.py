@@ -1,76 +1,45 @@
 
-# Bandit Loot Descriptions
-bandit_loot_descriptions = {
-    0: "A small pile of gold.",
-    1: "A small bottle of health potion. It's a bit cloudy.",
-    2: "A set of playing cards. They are in good condition.",
-    3: "A red bandana. It looks like it's been used to wipe blood off of a sword.",
-    4: "A long rope. It's about 10 feet long.",
-    5: "A sweaty pair of fingerless gloves. They smell not great.",
-    6: "A pair of leather boots. They look worn.",
-    7: "A pair of worn leather gloves.",
-    8: "A vial of thick-looking acid. It smells like rotten eggs.",
-    9: "A vial of poison."
-}
-
-special_bandit_loot_descriptions = {
-    0: "A token that claims you have defeated all bandits.",
-    1: "A bottle of wine owned by the 'Tavern Keeper'.",
-    2: "A bottle of whiskey owned by the 'Tavern Keeper'",
-    3: "A bottle of rum owned by the 'Tavern Keeper'"
-}
-
-# Goblin Loot Descriptions
-goblin_loot_descriptions = {
-    0: "A shiny gold coin",
-    1: "A small bottle of health potion. It's a bit cloudy.",
-    2: "A pile of decomposing fish heads. They smell awful.",
-    3: "A rusty sword. It looks like it's seen better days.",
-    4: "A rusty dagger. It looks like it's seen better days.",
-    5: "A peg leg. It looks like it's been used to hold a sword in place.",
-    6: "A coin purse. It's full of gold coins.",
-    7: "A jar of pickled toes. They look like they've been in there for a while.",
-    8: "A necklace made of teeth. It looks like it's been worn for a long time."
-}
-
-special_goblin_loot_descriptions = {
-    0: "A token that claims you have defeated all goblins.",
-    1: "A goblin's heart. It's still beating.",
-    2: "A cracked porcelain doll. It's missing an eye.",
-    3: "A pet squirrel. It looks like it's been well taken care of."
-}
-
-# Undead Loot Descriptions
-undead_loot_descriptions = {
-    0: "A dirty gold coin.",
-    1: "A small bottle of health potion. It's a bit cloudy.",
-    2: "A rusty sword. It looks like it's seen better days.",
-    3: "A rusty dagger. It looks like it's seen better days.",
-    4: "A tattered cloak. It looks like it was once well-made.",
-    5: "A tattered robe. It looks like it was once well-made.",
-    6: "A tattered shirt. It looks like it was once well-made.",
-    7: "A tattered pair of pants. They look like they've been worn for a while.",
-    8: "A tattered hat. It looks like it was once well-made.",
-    9: "A tattered pair of shoes. They look like they've been worn for a while.",
-    10: "A tattered pair of gloves. They look like they've been worn for a while."
-}
-
-special_undead_loot_descriptions = {
-    0: "A token that claims you have defeated all undead.",
-    1: "A vial of diseased spit. It's thick and viscous.",
-    2: "A small black pouch. It's full of gold coins."
-}
-
-# Creature Loot Descriptions
-creature_loot_descriptions = {
-    0: "A gold coin.",
-    1: "A small bottle of health potion. It's a bit cloudy.",
-    2: "A musty bag of spider webs.",
-    3: "A small bag of spider eggs. They look like they're about to hatch. Ew.",
-    4: "A small bag of spider legs. They look like they've been cooked. They smell awful."
-}
-
-special_creature_loot_descriptions = {
-    0: "A token that claims you have defeated all creatures.",
-    1: "A mystical spider eye. It's glowing."
+loot_descriptions = {
+    "Health Potion": "A small vial of red liquid. It smells like piss.",
+    "Set of Playing Cards": "A deck of cards with a picture of a skeleton on the back.",
+    "Red Bandana": "A red bandana with a skull and crossbones on it.",
+    "Rope": "A length of rope.",
+    "Fingerless Gloves": "A pair of fingerless gloves.",    
+    "Leather Boots": "A pair of leather boots.",
+    "Leather Gloves": "A pair of leather gloves.",        
+    "Vial of Acid": "A small vial of green liquid. It smells like rotten eggs.",
+    "Vial of Poison": "A small vial of black liquid. It smells like rotten eggs.",       
+    "Decomposing Fish Heads": "A jar of fish heads that have been rotting for a while.",
+    "Rusty Sword": "A rusted sword. It would shatter if you attempted to use it.",
+    "Rusty Dagger": "A rusted dagger. It would be laughable to use it in combat.",
+    "Peg Leg": "A wooden peg leg. It looks like it was made by a child.",
+    "A Coin Purse": "A small coin purse. It contains 5 gold coins.",
+    "A Jar of Pickled Toes": "A jar of pickled toes. It smells like rotten eggs.",
+    "Necklace of Teeth": "A necklace made of human teeth. It looks like it was made by a child.",
+    "Tattered Cloak": "A cloak that has definitely seen better days. It smells too.",
+    "Tattered Robe": "A robe once worn by a priest. It has seen better days.",
+    "Tattered Shirt": "A ripped shirt. It looks like it was once white.",
+    "Tattered Pants": "An unreckognizable pair of pants. They look like they were once blue.",
+    "Tattered Hat": "A hat made of leather. Faded and worn.",
+    "Tattered Shoes": "A pair of shoes. The soles are worn and the leather is faded.",
+    "Tattered Gloves": "A pair of gloves. They look like they were once white.",
+    "Tattered Socks": "Gross...",
+    "A Bag of Bones": "A bag of bones from unknown creatures.",
+    "A Bag of Spider Webs": "You defeated a spider and gathered it's webs. Good for making string.",
+    "A Bag of Spider Eggs": "You defeated a spider and gathered up the eggs. Used for making potions.",
+    "A Bag of Spider Legs": "You defeated a spider and gathered up it's legs. Used for making potions.",
+    "Bandit Token": "A token given to you by a bandit",
+    "Bottle of Wine": "A bottle of wine. It's a bit old, but still drinkable.",
+    "Bottle of Whiskey": "A bottle of whiskey. Inn Keepers favorite.",
+    "Bottle of Rum": "A bottle of strong rum.",
+    "Wooden Box of Coins": "A wooden box containing a large sum of stolen coins from the merchant.",
+    "Goblin Token": "A token given to you by a goblin",
+    "Goblin's Heart": "The heart of a goblin. It's still beating.",
+    "Undead Token": "A token given to you by an undead",
+    "Diseased Spit": "A vile of spit from an undead. It's covered in pus and blood.",
+    "Small Black Pouch": "A small black pouch. It contains 10 gold coins and some jewels.",
+    "Cracked Porcelain Doll": "A cracked porcelain doll. It's eyes are missing.",
+    "Pet Squirrel": "A pet squirrel. It's cute, but it's a bit smelly.",
+    "Creature Token": "A token given to you by a creature",
+    "Mystical Spider Eye": "A mystical spider eye. It's glowing with a strange light.",
 }
