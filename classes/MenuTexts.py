@@ -58,7 +58,7 @@ class Menu:
                 print(f"{_color('Items', 'red', attrs=['bold'])}  |  {_color('Quantity', 'yellow', attrs=['bold'])}")
                 
                 
-                for item in df:
+                for item in df: # This is no longer actually a dataframe, but a dictionary :shrug:
                     
                     quantity = df[item] #
                     
