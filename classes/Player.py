@@ -88,15 +88,23 @@ class Player:
             message = 'You are already at full health.'
             return False, message
         else:
+            '''
+                If for whatever reason the player is missing the health potion item
+                in the inventory, this next code will add it back in.
+            '''
             try:
                 if self.inventory['Health Potion'] > 0:
                     message = 'You use a health potion and gain 25 health.'
                     self.cur_health + 25
                     return True, message
             except KeyError:
+                message = "You don't have any health potions."
+                self.inventory['Health Potion'] = 0
+                return False, message
+            
+            else:
                 message = print('You do not have any health potions.')
                 return False, message
-       
         
                    
     def alter_stamina(self, amount, direction):
@@ -122,22 +130,7 @@ class Player:
             self.cur_mana += amount
         else:
             pass
-        
-    def place_inventory_item(self, items):
-        for item in items:
-            self.inventory = self.inventory.append(item)
-            
-        inventory = self.inventory
-        
-        # combine items and their quantities
-        for item in inventory:
-            if item in inventory:
-                item.quantity += 1
-                inventory.remove(item)
                 
-    def get_player(self):
-        player = self
-        return player
     
     def construct_inventory_items():
         inventory_dict = {}
