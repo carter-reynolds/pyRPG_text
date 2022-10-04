@@ -18,3 +18,14 @@ dictionaries/__pycache__/loot_descriptions.cpython-310.pyc
 classes/__pycache__/Database.cpython-310.pyc
 game.db
 scratch.py
+classes/__pycache__/Database.cpython-39.pyc
+classes/__pycache__/Enemies.cpython-39.pyc
+classes/__pycache__/MenuTexts.cpython-39.pyc
+classes/__pycache__/Player.cpython-39.pyc
+classes/__pycache__/Text.cpython-39.pyc
+classes/__pycache__/Utility.cpython-39.pyc
+dictionaries/__pycache__/enemy_names.cpython-39.pyc
+dictionaries/__pycache__/enemy_types.cpython-39.pyc
+dictionaries/__pycache__/loot_descriptions.cpython-39.pyc
+dictionaries/__pycache__/loot.cpython-39.pyc
+dictionaries/__pycache__/world.cpython-39.pyc
