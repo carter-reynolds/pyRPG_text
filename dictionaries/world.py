@@ -66,7 +66,44 @@ zonemap_dict = {
             'DOWN': "C2",
             'LEFT': "B1",
             'RIGHT': "B3"
-        }
+        },
+       'MINORZONES':{ 
+            "B2_minor_zones":{ 
+                "B2_1": { 
+                    "ZONENAME": "Barn",
+                    "DESCRIPTION": "A barn, full of hay and animals.",
+                    "EXAMINATION": "You see a cow, a horse, and a chicken.",
+                    "MOVEMENT": {
+                        "UP": "",
+                        "DOWN": "",
+                        "LEFT": "",
+                        "RIGHT": ""
+                    }
+                },
+                "B2_2": {
+                    "ZONENAME": "House",
+                    "DESCRIPTION": "Your house, where you live.",
+                    "EXAMINATION": "You see your bed, your table, and your chair.",
+                    "MOVEMENT": {
+                        "UP": "",
+                        "DOWN": "",
+                        "LEFT": "",
+                        "RIGHT": ""
+                    }
+                },
+                "B2_3": {
+                    "ZONENAME": "Fields",
+                    "DESCRIPTION": "Your fields, where you grow crops.",
+                    "EXAMINATION": "You see a wheat field, a corn field, and a potato field.",
+                    "MOVEMENT": {
+                        "UP": "",
+                        "DOWN": "",
+                        "LEFT": "",
+                        "RIGHT": ""
+                    }
+                }
+           }
+       }
     },
     'B3':{
         'ZONENAME': 'Stone Bridge',

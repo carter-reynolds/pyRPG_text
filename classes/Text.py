@@ -103,9 +103,9 @@ class textFunc:
         colored_gold = _color('\u26C1 '+ str(gold), 'yellow')
 
         print(f"{colored_header}" + "\n\n" + 
-              _color(" HEALTH ", 'white', 'on_red', attrs=['bold']) + f"{health_bar}" + "\n" + 
-              _color(" ENERGY ", 'white', 'on_green', attrs=['bold']) + f"{stamina_bar}" + "\n" + 
-              _color(" MAGIC  ", 'white', 'on_blue', attrs=['bold']) + f"{mana_bar}" + "\n" + 
+              _color(" HEALTH  ", 'white', 'on_red', attrs=['bold']) + f"{health_bar}" + "\n" + 
+              _color(" STAMINA ", 'white', 'on_green', attrs=['bold']) + f"{stamina_bar}" + "\n" + 
+              _color(" MAGIC   ", 'white', 'on_blue', attrs=['bold']) + f"{mana_bar}" + "\n" + 
               f"{colored_gold}" + "\n")
     
     
