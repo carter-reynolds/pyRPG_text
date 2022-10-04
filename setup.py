@@ -9,6 +9,7 @@ import os
 import loot_table
 import sys
 
+# sets up everything we need for the game
 
 def main_game_loop(player):
     while player.end == False:  

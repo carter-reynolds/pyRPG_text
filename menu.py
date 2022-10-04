@@ -4,8 +4,7 @@ from classes.Enemies import Enemy
 from classes.Player import Player
 import sys
 
-
-
+# Functions for interacting with menus
 
 def main_menu(): # Load title screen
     

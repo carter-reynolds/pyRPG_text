@@ -4,6 +4,7 @@ from classes.Utility import Utilities as util
 from textwrap import dedent
 from termcolor import colored as _color
 
+# Pretty much anything that displays text to the player often is in this class
 
 class textFunc:
     

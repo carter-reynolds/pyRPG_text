@@ -5,6 +5,7 @@ import time
 
 """
 Start testing loading and saving data
+Currently not being used
 """
 
 def load_player_data():

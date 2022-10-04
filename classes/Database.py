@@ -2,6 +2,8 @@ from fileinput import filename
 import sqlite3
 from classes.Utility import Utilities as util
 
+# Really poorly coded database class, but barely being used, so it's okay for now until I can get around to it
+
 class Database:
     def __init__(self, filename,**kwargs):
         self.filename = kwargs.get(filename)

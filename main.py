@@ -4,6 +4,8 @@
 import menu
 import setup
 
+# Main game controller - you run this to start playing
+
 def main():
     
     # Modes/Settings

@@ -3,6 +3,8 @@ import os
 import sys
 import random as rand
 
+# Random utility functions for the game to use that didn't need to clog up other files
+
 class Utilities:
     
     @staticmethod

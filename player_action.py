@@ -9,6 +9,8 @@ import fight
 from termcolor import colored as _color
 
 
+# handles most of the command input and movement for the player
+
 def prompt(player):
     
     PROMPT = True

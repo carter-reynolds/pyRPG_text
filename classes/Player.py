@@ -1,5 +1,7 @@
 from classes.Database import Database as db
 import loot_table
+
+# This class creates and tracks all of the player's stats and inventory
     
 class Player:
     def __init__(self, name, role):

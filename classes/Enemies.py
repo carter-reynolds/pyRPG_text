@@ -6,6 +6,10 @@ from dictionaries.loot import bandit_loot_dict, goblin_loot_dict, undead_loot_di
 import random as rand
 import textwrap
 
+
+# Most of the functions in this class are used to generate enemies for the player to fight.
+# The enemies are generated based on the level of the player, and the type of enemy.
+    
 class Enemy:
     
     # Init Enemy Generation

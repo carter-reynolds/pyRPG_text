@@ -3,7 +3,8 @@ import dictionaries.loot_descriptions as desc
 from classes.Database import Database as db
 
 """
-No clue what the functionality of this should be yet
+No clue what the functionality of this should be yet, but it currently returns a list of all the loot items
+mainly to build the player's inventory.
 
 Returns:
 a table containing all the loot items in rough order of enemy type

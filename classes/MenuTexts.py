@@ -1,5 +1,8 @@
 from termcolor import colored as _color
 
+# This class is used to store all the text that is displayed in the menu
+# This class will eventually be used to automatically render windows based on the text and the size of the window
+
 class Menu:
     
     def __init__(self):
