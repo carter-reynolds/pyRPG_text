@@ -1,14 +1,14 @@
-from fileinput import filename
 import sqlite3
 from classes.Utility import Utilities as util
 
 # Really poorly coded database class, but barely being used, so it's okay for now until I can get around to it
 
 class Database:
-    def __init__(self, filename,**kwargs):
+    def __init__(self, filename, **kwargs):
         self.filename = kwargs.get(filename)
         
     
+    @staticmethod 
     def create_game_tables():
         
         timer_start = util.timer()
@@ -25,7 +25,8 @@ class Database:
         timer_final = util.timer() - timer_start
         
         print("Finished creating tables. Took {} seconds.".format(timer_final))
-          
+    
+    @staticmethod      
     def execute(sql, params = ()):
         db = sqlite3.connect('db/game.db')
         cursor = db.cursor()
@@ -33,6 +34,7 @@ class Database:
         db.commit()
         db.close()
     
+    @staticmethod 
     # create function to get rows from table
     def get_all_rows(table):
         db = sqlite3.connect('db/game.db')
@@ -42,6 +44,7 @@ class Database:
         db.close()
         return rows
     
+    @staticmethod 
     def add_item(item, quantity):
         db = sqlite3.connect('db/game.db')
         cursor = db.cursor()
@@ -51,7 +54,8 @@ class Database:
                             WHERE name = (?)""", (item, quantity, item))
         db.commit()
         db.close()
-        
+    
+    @staticmethod     
     def get_random_level_enemy(type, level):
         db = sqlite3.connect('db/game.db')
         cursor = db.cursor()
