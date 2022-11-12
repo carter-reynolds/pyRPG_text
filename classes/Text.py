@@ -31,28 +31,6 @@ class textFunc:
         
         for speech in welcome_speeches:
             util.scroll_text(speech, 0.05)
-            
-    
-    @staticmethod
-    # TODO: DELETE THIS AND/OR MOVE INTO PLAYER CLASS           
-    def print_player_info(player):
-        
-        player_stats_text = f"""
-        Name: {player.name}
-        Role: {player.role}
-        Health: {player.cur_health}
-        Mana: {player.cur_mana}
-        Attack: {player.cur_attack}
-        Stamina: {player.cur_stamina}
-        Effect: {player.effects}
-        Inventory: {player.inventory}
-        Carry Weight: {player.cur_carry_weight}
-
-        Current Location: {zonemap_dict[player.location]['ZONENAME']} - {player.location}
-        
-        """
-        fixed_player_text = dedent(player_stats_text)
-        print(_color(fixed_player_text, 'green'))
         
     
     @staticmethod
