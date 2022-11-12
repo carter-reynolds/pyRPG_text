@@ -8,33 +8,31 @@ import sys
 
 def main_menu(): # Load title screen
     
-    MAIN = True
-    
-    while MAIN:
+    while True:
         
         util.clear_term(0)
         
-        menuText.display(menu='main', df=None)
+        menuText.display(menu='main')
         
-        option = input('> ')
-    
         try:
-            option_ = int(option)
-            if option_ == 1:
+            
+            option = int(input('> '))
+            
+            if option == 1: 
                 return False
-            elif option_ == 2:
+            
+            elif option == 2:               
                 help_menu()
-            elif option_ == 3:
+                
+            elif option == 3:             
                 return sys.exit()
-            else:
+            
+            else:           
                 continue
-        except ValueError as error:
-            util.clear_term(0)
-            print("error: enter in a number")
-            util.clear_term(2)
+            
+        except ValueError:
+            util.clear_term(2, message="error: enter in a number")
             continue
-               
-    return False
 
         
 def help_menu():
@@ -57,20 +55,18 @@ def help_menu():
     return False
 
 def actions_menu(action_list):
-    ACTIONS = True
     
     util.clear_term()
     
-    while ACTIONS:
+    while True:
         
         for action in action_list:
             print(action)
             
-        option = input('Press enter to continue')
+        input('Press enter to continue')
         
-        break
-    
-    return
+        return False
+
     
         
     
@@ -89,15 +85,13 @@ def pause_menu(player):
         
         if option == '1':
             
-            INVENTORY = True
-            
             inventory = player.inventory
             
             util.clear_term(0)
-            menuText.display(menu='inventory', df=inventory)
+            menuText.display(menu='inventory', inventory=inventory)
             
             while INVENTORY:
-                
+            
                 option = input('> ')
                 
                 if option == '1':
