@@ -38,17 +38,11 @@ class Player:
         self.max_attack = 0
         self.cur_attack = self.max_attack
         
-        self.max_carry_weight = 0 
-        self.cur_carry_weight = self.max_carry_weight
-        
         self.effects = []
+    
+        self.xp_requirements = {0:0, 1:100, 2:200, 3:300, 4:400, 5:500, 6:600, 7:700, 8:800, 9:900, 10:1000}
+        self.attribute_points = 10
         
-    def write_player_data(self):
-        sql = '''
-            INSERT INTO player (name, role, level, gold, location, health, defense, attack, weapon, shield, armor, effects)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        '''
-        db.execute(sql, (self.name, self.role, self.level, self.gold, self.location, self.cur_health, self.cur_defense, self.cur_attack, self.weapon, '', '', ''))
         
     def set_player_stats(self, role):
         if role == 'Warrior':
@@ -57,13 +51,11 @@ class Player:
             self.max_stamina = 100
             self.max_defense = 10
             self.max_attack = 15
-            self.max_carry_weight = 100
             self.cur_health = self.max_health
             self.cur_mana = self.max_mana
             self.cur_stamina = self.max_stamina
             self.cur_defense = self.max_defense
             self.cur_attack = self.max_attack
-            self.cur_carry_weight = self.max_carry_weight
             self.weapon = ''     
         elif role == 'Mage':
             self.max_health = 85
@@ -71,14 +63,12 @@ class Player:
             self.max_stamina = 75
             self.max_defense = 10
             self.max_attack = 5
-            self.max_carry_weight = 100
             self.cur_mana = self.max_mana
             self.cur_stamina = self.max_stamina
             self.cur_defense = self.max_defense
             self.cur_attack = self.max_attack
-            self.cur_carry_weight = self.max_carry_weight
             self.weapon = ''
-        self.write_player_data()
+        
         
     def rest(self):
         self.cur_stamina = self.max_stamina
@@ -97,7 +87,7 @@ class Player:
             try:
                 if self.inventory['Health Potion'] > 0:
                     message = 'You use a health potion and gain 25 health.'
-                    self.cur_health + 25
+                    self.cur_health += 25
                     return True, message
             except KeyError:
                 message = "You don't have any health potions."
@@ -133,7 +123,7 @@ class Player:
         else:
             pass
                 
-    
+    @staticmethod
     def construct_inventory_items():
         inventory_dict = {}
         
