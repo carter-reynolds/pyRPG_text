@@ -37,14 +37,12 @@ def prompt(player):
         
         util.spacing(1)
         
-        action = input("What would you like to do?\n> ")
-        action = action.lower()
+        action = input("What would you like to do?\n> ").lower()
+        #action = action.lower()
         
         if action not in valid_actions:
-            util.clear_term(0)
-            print("Invalid Action.")
-            print(_color("Type 'actions' to see a list of valid actions.", 'red', attrs=['bold', 'underline']))
-            util.clear_term(2)
+            message = "Invalid Action.\n" + _color("Type 'actions' to see a list of valid actions.", 'red', attrs=['bold', 'underline'])
+            
             continue
         else:
             if action in system_actions:
