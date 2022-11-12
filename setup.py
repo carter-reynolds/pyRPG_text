@@ -58,10 +58,10 @@ def game():
     
     #### ROLE ASSIGNMENT ####
     ask_role = """
-                Please choose one of the following roles: 
-                1. Warrior
-                2. Mage
-                """
+    Please choose one of the following roles: 
+    1. Warrior
+    2. Mage
+    """
     ask_role = textwrap.dedent(ask_role)
     
     util.scroll_text(ask_role, 0.05)
@@ -73,19 +73,11 @@ def game():
             role = 'Warrior'
             player.role = role
             player.set_player_stats(role)
-            util.scroll_text("You have chosen Warrior -- here are your starting stats:", 0.05)
-            util.spacing(2)
-            text.print_player_info(player)
-            input("Press Enter/Return to continue")
             break
         elif role_choice == '2':
             role =  'Mage'
             player.role = role
             player.set_player_stats(role)
-            util.scroll_text("You have chosen Mage -- here are your starting stats:", 0.05)
-            util.spacing(2)
-            text.print_player_info(player)
-            input("Press Enter/Return to continue")
             break
         else:
             print('A number was not entered!')
