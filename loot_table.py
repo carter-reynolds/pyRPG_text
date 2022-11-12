@@ -56,7 +56,6 @@ def get_full_loot_table():
     for l in loot_tables:
         for i in l:
             full_loot_table.append(i)
-            print(i)
             
     
     full_loot_table = list(dict.fromkeys(full_loot_table))
