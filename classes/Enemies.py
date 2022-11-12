@@ -1,8 +1,18 @@
+from dictionaries.enemy_names import (
+    bandit_names, goblin_names, undead_names, creature_names
+)
+
+from dictionaries.loot import (
+    bandit_loot_dict, goblin_loot_dict, 
+    undead_loot_dict, creature_loot_dict
+)
+
+from dictionaries.enemy_types import (
+    types, levels
+)
+
 from classes.Database import Database as db
 from classes.Utility import Utilities as util
-from dictionaries.enemy_types import types, levels
-from dictionaries.enemy_names import bandit_names, goblin_names, undead_names, creature_names
-from dictionaries.loot import bandit_loot_dict, goblin_loot_dict, undead_loot_dict, creature_loot_dict
 import random as rand
 import textwrap
 
@@ -12,11 +22,46 @@ import textwrap
     
 class Enemy:
     
+    
+    
+    # ENEMY GEN CONSTANTS #
+    
+    DEFENSE_MODIFIER = 1.33
+    
+    LEVEL_LOOT_MODIFIERS = {
+        0: 1,
+        1: 2,
+        2: 3,
+        3: 4
+    }
+    
+    STATS_MODIFIERS = {
+        0: 1,
+        1: 1.5,
+        2: 2,
+        3: 2.5
+    }
+    
+    ENEMY_NAMES = [
+        bandit_names,
+        goblin_names,
+        undead_names,
+        creature_names
+    ]
+    
+    LOOT_DICTIONARIES = [
+        bandit_loot_dict, 
+        goblin_loot_dict, 
+        undead_loot_dict, 
+        creature_loot_dict
+    ]
+    
+    
     # Init Enemy Generation
-    def __init__(self, type_, level):
-        self.name = self.assign_random_name(type_) 
-        self.type = int(type_)    
-        self.level = int(level)   
+    def __init__(self, type_,):
+        self.type = type_    
+        self.level = self.random_level()
+        self.name = self.assign_random_name()    
         
         # These are set by the set_stats method after self.level is set  
         self.gold = 0       
@@ -24,132 +69,83 @@ class Enemy:
         self.max_health = 0     
         self.defense = 0    
         self.attack = 0    
-        self.loot = self.assign_random_loot(type_, level)
+        self.loot = self.assign_random_loot()
         
         # Extra stuff not really used yet      
         self.weapon = ''   
         self.effect = []    
         self.location = '' 
-        self.defeated = 0   
+        self.defeated = False  
         
         # Set all stats based on level, also sets gold amount
-        self.set_stats(level)  
+        self.set_stats() 
         
-        
-        
+    
     def random_level(self):
         return rand.randint(0, 3)
     
-    def assign_random_name(self, type_):
+    def assign_random_name(self):
+        return rand.choice(Enemy.ENEMY_NAMES[self.type])
         
-        random_bandit = rand.randint(0, (len(bandit_names) - 1))
-        random_goblin = rand.randint(0, (len(goblin_names) - 1))
-        random_undead = rand.randint(0, (len(undead_names) - 1))
-        random_creature = rand.randint(0, (len(creature_names) - 1))
-        
-        if type_ == 0:
-            name = bandit_names[random_bandit]
-        elif type_ == 1:
-            name = goblin_names[random_goblin]
-        elif type_ == 2:
-            name = undead_names[random_undead]
-        elif type_ == 3:
-            name = creature_names[random_creature]
-        else:
-            pass
-        
-        return name
-    
     
     # Assign some random loot to the enemy
-    def assign_random_loot(self, _type, level):
+    def assign_random_loot(self):
+        
+        level_modifier = Enemy.LEVEL_LOOT_MODIFIERS[self.level]
+        
+        loot_dict = Enemy.LOOT_DICTIONARIES[self.type]
+        
+        number_of_loot = (rand.randint(0, 4) * level_modifier)
         
         loot = []
-        
-        if level == 0:
-            number_of_loot = rand.randint(1, 2)
-        if level == 1:
-            number_of_loot = rand.randint(2, 3)
-        if level == 2:
-            number_of_loot = rand.randint(3, 5)
-        if level == 3:
-            number_of_loot = rand.randint(3, 7)
-        
+
         for i in range(number_of_loot):
-            if _type == 0:
-                random_loot = bandit_loot_dict[rand.randint(0, 8)]
-                loot.append(random_loot)
-            elif _type == 1:
-                random_loot = goblin_loot_dict[rand.randint(0, 7)]
-                loot.append(random_loot)
-            elif _type == 2:
-                random_loot = undead_loot_dict[rand.randint(0, 11)]
-                loot.append(random_loot)
-            elif _type == 3:
-                random_loot = creature_loot_dict[rand.randint(0, 3)]
-                loot.append(random_loot)
-            else:
-                pass 
+            random_item = rand.randint(0, (len(loot_dict) - 1))
+            loot.append(loot_dict[random_item])
+                
         return loot
+    
       
     # Set up all stats based on level
-    def set_stats(self, level):
+    def set_stats(self):
+            
+        stats_to_set = [
+            self.health,
+            self.defense,
+            self.attack,
+            self.gold
+        ]
         
-        if level == 0:
-            self.health = rand.randint(1, 10)
-            self.max_health = self.health
-            self.defense = rand.randint(1, 10)
-            self.attack = rand.randint(1, 10)
-            self.gold = rand.randint(1, 10) * 1
-        elif level == 1:
-            self.health = rand.randint(10, 20)
-            self.max_health = self.health
-            self.defense = rand.randint(10, 20)
-            self.attack = rand.randint(10, 20)
-            self.gold = rand.randint(10, 20) * 2
-        elif level == 2:
-            self.health = rand.randint(20, 30)
-            self.max_health = self.health
-            self.defense = rand.randint(20, 30)
-            self.attack = rand.randint(20, 30)
-            self.gold = rand.randint(20, 30) * 3
-        elif level == 3:
-            self.health = rand.randint(30, 40)
-            self.max_health = self.health
-            self.defense = rand.randint(30, 40)
-            self.attack = rand.randint(30, 40)
-            self.gold = rand.randint(30, 40) * 4
-        else:
-            self.health = None
-            self.max_health = None
-            self.defense = None
-            self.attack = None
-            self.gold = None
+        stat_mod = Enemy.STATS_MODIFIERS[self.level]
+        
+        for stat in stats_to_set:
+            stat += rand.randint(1, 10) * stat_mod
+        
+        self.max_health = self.health
         
       
     def take_damage(self, damage):
         
-        damage = damage - int(self.defense / 1.33)  # Damage is reduced by 1/3 of defense
+        damage_inflicted = damage - int(self.defense / Enemy.DEFENSE_MODIFIER)  # Damage is reduced by 1/3 of defense
         
-        if damage < 0:
-            damage = 0
-            message = "The {}'s defense was too strong!".format(self.name)
+        if damage_inflicted < 0:
+            damage_inflicted = 0
+            message = f"{self.name}: defense was too strong!"
             return False, message
         else:
             self.health -= damage
-            message = f"You deal {damage} damage!\n{self.name} has {self.health} health left!"
-            if self.health < 0:
-                self.health = 0
+            
+            if self.health <= 0:
+                self.defeated = True
+                self.health = 0 # Just in case it goes below 0
                 
+            message = f"You deal {damage} damage!\n{self.name} has {self.health} health left!"
+              
             return True, message
 
        
     def _defeated(self):
-        if self.health <= 0:
-            self.defeated = 1
-            return True
-        else:
-            return False
+        return self.defeated
         
         
    
