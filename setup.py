@@ -19,13 +19,17 @@ def main_game_loop(player):
         
 # if game.db exists return true else return false
 def check_for_db():
-    if os.path.exists('db/game.db'):
+    
+    if os.path.isfile('pyRPG_text/data/game.db'):
+        print('file')
         return True
     else:
+        print('no file')
         return False
     
+    
 def create_db():
-    db('db/game.db')
+    db('pyRPG_text/data/game.db')
     db.create_game_tables()
     loot_table.setup_inventory()
     print("Database and tables created!")

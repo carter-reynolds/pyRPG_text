@@ -19,7 +19,7 @@ def main():
             IN_MENU = menu.main_menu()
             if not IN_MENU:
                 while not SETUP:
-                    if not setup.check_for_db():
+                    if setup.check_for_db() == False:
                         setup.create_db()
                     else:  
                         _setup, player = setup.game() # Returns a tuple: (Boolean, type<Player.object>)

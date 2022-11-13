@@ -29,3 +29,14 @@ dictionaries/__pycache__/enemy_types.cpython-39.pyc
 dictionaries/__pycache__/loot_descriptions.cpython-39.pyc
 dictionaries/__pycache__/loot.cpython-39.pyc
 dictionaries/__pycache__/world.cpython-39.pyc
+dictionaries/__pycache__/enemy_names.cpython-311.pyc
+dictionaries/__pycache__/enemy_types.cpython-311.pyc
+dictionaries/__pycache__/loot_descriptions.cpython-311.pyc
+dictionaries/__pycache__/loot.cpython-311.pyc
+dictionaries/__pycache__/world.cpython-311.pyc
+classes/__pycache__/Database.cpython-311.pyc
+classes/__pycache__/Enemies.cpython-311.pyc
+classes/__pycache__/MenuTexts.cpython-311.pyc
+classes/__pycache__/Player.cpython-311.pyc
+classes/__pycache__/Text.cpython-311.pyc
+classes/__pycache__/Utility.cpython-311.pyc

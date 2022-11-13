@@ -18,19 +18,9 @@ def fight(player):
     
     random_type = rand.randint(0, 3) # Randomly choose an enemy type
     
-    # Randomly choose an enemy level based on player level
-    if player.level == 0:
-        random_level = rand.randint(0, 1)
-    elif player.level == 1:
-        random_level = rand.randint(0, 2)
-    elif player.level == 2:
-        random_level = rand.randint(1, 3)
-    elif player.level == 3:
-        random_level = rand.randint(2, 3)
-    else:
-        pass
+    
 
-    enemy = Enemy(random_type, random_level) # Create the enemy - set stats by type and level
+    enemy = Enemy(random_type) # Create the enemy - set stats by type and level
     
     while not RAN_AWAY: # While the player has not run away
         

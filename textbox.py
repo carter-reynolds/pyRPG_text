@@ -65,7 +65,7 @@ def make_text_box(title="", text="", choices=[""]):
     # For each line of text, draw the left side of the box, the text, and the right side of the box
     for line in text:
         remaining_space = line_width - len(line)
-        print(f"{left}{line}{' ' * (remaining_space)}{right}")
+        print(f"{left}{line}{' ' * (remaining_space-5)}{right}")
     
     # Print the bottom of the box    
     print(left + (top * max_line_size) + right)

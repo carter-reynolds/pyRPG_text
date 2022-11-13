@@ -19,7 +19,7 @@ class Menu:
                                              choices=['1. Back'])            
             elif menu == 'main':
                 
-                menu_text = "Select an option when you are ready to proceedccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+                menu_text = "Select an option when you are ready to proceed."
                 make_text_box(title="Menu Menu:", text=menu_text, choices=['1. New Game', '2. Help', '3. Exit'])
 
             elif menu == 'pause':

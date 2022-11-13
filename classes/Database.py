@@ -4,7 +4,7 @@ from classes.Utility import Utilities as util
 # Really poorly coded database class, but barely being used, so it's okay for now until I can get around to it
 
 class Database:
-    def __init__(self, filename, **kwargs):
+    def __init__(self, filename="game.db", **kwargs):
         self.filename = kwargs.get(filename)
         
     
@@ -13,9 +13,9 @@ class Database:
         
         timer_start = util.timer()
     
-        db = sqlite3.connect('db/game.db')
+        db = sqlite3.connect('pyRPG_text/data/game.db')
         
-        with open('db/query/initial_table_setup.sql', 'r') as f:
+        with open('pyRPG_text/data/initial_table_setup.sql', 'r') as f:
             sql = f.read()
             db.executescript(sql)
             db.commit()
@@ -28,7 +28,7 @@ class Database:
     
     @staticmethod      
     def execute(sql, params = ()):
-        db = sqlite3.connect('db/game.db')
+        db = sqlite3.connect('pyRPG_text/data/game.db')
         cursor = db.cursor()
         cursor.execute(sql, params)
         db.commit()
@@ -37,7 +37,7 @@ class Database:
     @staticmethod 
     # create function to get rows from table
     def get_all_rows(table):
-        db = sqlite3.connect('db/game.db')
+        db = sqlite3.connect('pyRPG_text/data/game.db')
         cursor = db.cursor()
         cursor.execute("SELECT * FROM {}".format(table))
         rows = cursor.fetchall()
@@ -46,7 +46,7 @@ class Database:
     
     @staticmethod 
     def add_item(item, quantity):
-        db = sqlite3.connect('db/game.db')
+        db = sqlite3.connect('pyRPG_text/data/game.db')
         cursor = db.cursor()
         cursor.execute( """
                         INSERT INTO inventory (name, quantity) 
@@ -57,7 +57,7 @@ class Database:
     
     @staticmethod     
     def get_random_level_enemy(type, level):
-        db = sqlite3.connect('db/game.db')
+        db = sqlite3.connect('pyRPG_text/data/game.db')
         cursor = db.cursor()
         cursor.execute( """
                     SELECT * FROM enemies
