@@ -123,6 +123,7 @@ class Player:
             self.cur_mana += amount
         else:
             pass
+    
                 
     @staticmethod
     def construct_inventory_items():

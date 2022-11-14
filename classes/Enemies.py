@@ -13,6 +13,7 @@ from dictionaries.enemy_types import (
 
 from classes.Database import Database as db
 from classes.Utility import Utilities as util
+from classes.Player import Player
 import random as rand
 import textwrap
 
@@ -108,25 +109,21 @@ class Enemy:
       
     # Set up all stats based on level
     def set_stats(self):
-            
-        stats_to_set = [
-            self.health,
-            self.defense,
-            self.attack,
-            self.gold
-        ]
         
         stat_mod = Enemy.STATS_MODIFIERS[self.level]
         
-        for stat in stats_to_set:
-            stat += rand.randint(1, 10) * stat_mod
-        
+        self.health += (rand.randint(1, 10) * stat_mod)
+        self.attack += (rand.randint(1, 10) * stat_mod)
+        self.defense += (rand.randint(1, 10) * stat_mod)
+        self.gold += (rand.randint(5, 10) * stat_mod)
         self.max_health = self.health
+        
+        
         
       
     def take_damage(self, damage):
         
-        damage_inflicted = damage - int(self.defense / Enemy.DEFENSE_MODIFIER)  # Damage is reduced by 1/3 of defense
+        damage_inflicted = damage - (self.defense / Enemy.DEFENSE_MODIFIER)  # Damage is reduced by 1/3 of defense
         
         if damage_inflicted < 0:
             damage_inflicted = 0

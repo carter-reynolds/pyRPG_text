@@ -1,3 +1,4 @@
+import time
 from classes.Enemies import Enemy
 import random as rand
 from classes.Utility import Utilities as util
@@ -14,88 +15,104 @@ def fight(player):
         None
     """
     
+    roll = rand.randint(1, 100)
+    
+    if roll <= 50:
+        PLAYER_ATTACKING = True
+        ENEMY_ATTACKING = False
+        message = "Player attacks first."
+    else:
+        PLAYER_ATTACKING = False
+        ENEMY_ATTACKING = True
+        message = "Enemy attacks first."
+        
     RAN_AWAY = False # Used to break out of the fight loop
     
-    random_type = rand.randint(0, 3) # Randomly choose an enemy type
+    random_enemy_type = rand.randint(0, 3) # Randomly choose an enemy type
+    enemy = Enemy(random_enemy_type) # Create the enemy - set stats by type
+    
+    # keep generating enemies until the player is the same level or higher
+    while enemy.level > player.level:
+        del enemy
+        enemy = Enemy(random_enemy_type)
     
     
-
-    enemy = Enemy(random_type) # Create the enemy - set stats by type and level
     
     while not RAN_AWAY: # While the player has not run away
         
         util.clear_term(0)
-        
         text.get_enemy_stats(enemy) # Print the enemy stats
-        
-        PLAYER_ATTACKING = True
-        ENEMY_ATTACKING = False
+        util.spacing(1)
+        text.get_cur_stats(player) # Print the player stats
+        print(message, '\n')
         
         if ENEMY_ATTACKING:
-            pass
-        else:
             
-            message = ""
+            damage_outgoing = enemy.attack - player.cur_defense
             
-            while PLAYER_ATTACKING:
+            if damage_outgoing <= 0:
+                damage_outgoing = 0
                 
-                attack_actions = ["attack", "hit", "fight", "kill", "run", "heal"]
+                message = f"You blocked {enemy.name}'s attack!"
+            else:
+                message = f"{enemy.name} deals {damage_outgoing} damage!"
+                player.health -= damage_outgoing
                 
-                util.clear_term(0)
+            time.sleep(3)
                 
-                text.get_enemy_stats(enemy) # Print the enemy stats
-                util.spacing(1)
-                text.get_cur_stats(player) # Print the player stats
+            ENEMY_ATTACKING = False
+            PLAYER_ATTACKING = True
+            continue
+            
                 
-                util.spacing(1)
-                
-                print(message, '\n')
-                
-                action = input("What do you want to do?\n> ")
-                action = action.lower()
-                
-                if action in attack_actions: 
-                    if action != 'run':
-                        if action == 'heal':
-                            player_try_heal = player.use_health_potion() # Try to heal the player
-                            
-                            # The above returns a tuple: (success bool, message)
-                            player_did_heal = player_try_heal[0] # The first value is a boolean that tells us if the player was able to heal
-                            message = player_try_heal[1] # The second value is a string that tells us what happened
-                            continue
-                        else:
-                            pass
-                    elif action == 'run':
-                        print("You ran away!")
-                        PLAYER_ATTACKING = False
-                        RAN_AWAY = True
-                        break
-                    
-                    
-                    damage = player.cur_attack 
-                
-                    player_damage_done = enemy.take_damage(damage) 
-                
-                    if not player_damage_done[0]: # If damage was not done, print the reason and take damage
-                        player.cur_health -= (enemy.attack - player.cur_defense)
-                        message = player_damage_done[1]
+        elif PLAYER_ATTACKING:
+             
+            attack_actions = ["attack", "hit", "fight", "kill", "run", "heal"]
+            
+            action = input("What do you want to do?\n> ").lower()
+            
+            if action in attack_actions: 
+                if action != 'run':
+                    if action == 'heal':
+                        player_try_heal = player.use_health_potion() # Try to heal the player
                         
+                        # The above returns a tuple: (success bool, message)
+                        player_did_heal = player_try_heal[0] # The first value is a boolean that tells us if the player was able to heal
+                        message = player_try_heal[1] # The second value is a string that tells us what happened
+                        continue
                     else:
-                        
-                        message = player_damage_done[1] # If damage was done, print the message
-                        player.alter_stamina(5, 0) # Decrease stamina by 5 since we attacked
-                        
-                        if enemy._defeated():
-                            util.clear_term(0)
-                            util.scroll_text(_color(f'You defeated {enemy.name}!\n', 'green'), 0.05)
-                            PLAYER_ATTACKING = False
-                            ENEMY_ATTACKING = False
-                            RAN_AWAY = False
-                            break
-                        else:
-                            continue
+                        pass
+                elif action == 'run':
+                    print("You ran away!")
+                    PLAYER_ATTACKING = False
+                    RAN_AWAY = True
+                    break
+                
+                
+                damage = player.cur_attack 
+            
+                player_damage_done = enemy.take_damage(damage) 
+            
+                if not player_damage_done[0]: # If damage was not done, print the reason and take damage
+                    player.cur_health -= (enemy.attack - player.cur_defense)
+                    message = player_damage_done[1]
+                    
                 else:
-                    continue            
+                    
+                    message = player_damage_done[1] # If damage was done, print the message
+                    player.alter_stamina(5, 0) # Decrease stamina by 5 since we attacked
+                    
+                    if enemy._defeated():
+                        util.clear_term(0)
+                        util.scroll_text(_color(f'You defeated {enemy.name}!\n', 'green'), 0.05)
+                        PLAYER_ATTACKING = False
+                        ENEMY_ATTACKING = False
+                        RAN_AWAY = False
+                        break
+                    else:
+                        continue
+            else:
+                continue            
             
         if RAN_AWAY == True:
             LOOTING = False                 
