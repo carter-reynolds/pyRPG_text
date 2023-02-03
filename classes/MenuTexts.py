@@ -91,7 +91,7 @@ class Menu:
                         
                 print(pretty_inv)
                     
-                print('Enter (1) to return to the game')
+                print('Enter to return to the game')
 
             
                 
