@@ -98,7 +98,7 @@ class textFunc:
         stamina_bar = textFunc.print_bar(stamina, max_stamina, None, 'green')
         mana_bar = textFunc.print_bar(mana, max_mana, None, 'blue')
         
-        player_text_header = f"❱❱❱ {name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)} ❰❰❰"
+        player_text_header = f"{name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)}"
         
         colored_header = _color(player_text_header.upper(), 'red', attrs=['bold'])
         colored_gold = _color('\u26C1 '+ str(gold), 'yellow')

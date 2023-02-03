@@ -1,4 +1,6 @@
 from termcolor import colored as _color
+from tabulate import tabulate
+import pandas as pd
 
 # This class is used to store all the text that is displayed in the menu
 # This class will eventually be used to automatically render windows based on the text and the size of the window
@@ -58,17 +60,36 @@ class Menu:
                 
             elif (menu == 'inventory'):
                 
-                print(f"{_color('Items', 'red', attrs=['bold'])}  |  {_color('Quantity', 'yellow', attrs=['bold'])}")
                 
+                ''' new inventory display:
+                ╭──────────────────────┬────────────╮
+                │ Item                 │   Quantity │
+                ├──────────────────────┼────────────┤
+                │ Health Potion        │          2 │
+                ├──────────────────────┼────────────┤
+                │ Fingerless Gloves    │          1 │
+                ├──────────────────────┼────────────┤
+                │ Leather Boots        │          1 │
+                ╰──────────────────────┴────────────╯
+                orders from highest to lowest quantity 
+                and auto hides anything 0 quantity
+                '''                
+                items = []
+                quantities = []
                 
-                for item in df: # This is no longer actually a dataframe, but a dictionary :shrug:
+                for key in df.keys():
+                    items.append(key)
                     
-                    quantity = df[item] #
+                for value in df.values():
+                    quantities.append(value)
                     
-                    if quantity > 0: # Only display items that have a quantity greater than 0
-                        print(f"{_color(item, 'red')} {_color('x' + str(quantity), 'yellow')}")
-                    else:
-                        pass
+                df_ = pd.DataFrame({'Item': items, 'Quantity': quantities})
+                df_.sort_values(by=['Quantity'], inplace=True, ascending=False)
+                df_.drop(df_[df_['Quantity'] == 0].index, inplace=True)
+                
+                pretty_inv = tabulate(df_, headers='keys', tablefmt='rounded_grid', showindex=False)
+                        
+                print(pretty_inv)
                     
                 print('Enter (1) to return to the game')
 

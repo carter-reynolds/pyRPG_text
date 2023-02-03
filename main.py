@@ -23,9 +23,8 @@ def main():
                         # if not, create it
                         setup.create_db()
                     else:  
-                        _setup = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
-                        player = _setup[1]  # Created player object from setup
-                        _setup = _setup[0]  # Boolean whether or not setup was finished (overwrites the tuple, i know...)
+                        _setup, player = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
+                        
                         if _setup == True:
                             SETUP = True
                         else:
