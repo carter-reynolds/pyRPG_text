@@ -132,6 +132,27 @@ class Player:
             self.cur_mana += amount
         else:
             pass
+        
+    def level_check(self):
+        if self.xp >= 100:
+            self.level += 1
+            self.xp -= 100
+            
+            self.max_health += 10
+            self.max_mana += 10
+            self.max_stamina += 10
+            self.max_defense += 5
+            self.max_attack += 2
+            
+            self.cur_health = self.max_health
+            self.cur_mana = self.max_mana
+            self.cur_stamina = self.max_stamina
+            self.cur_defense = self.max_defense
+            self.cur_attack = self.max_attack
+            
+            return True
+        else:
+            return False
                 
     
     def construct_inventory_items():
