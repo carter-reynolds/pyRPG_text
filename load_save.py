@@ -1,5 +1,5 @@
 from classes.Database import Database as db
-from classes.Player import Player as player
+from classes._Player import Player as player
 from classes.Enemies import Enemy as enemy
 import time
 

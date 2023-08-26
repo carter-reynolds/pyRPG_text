@@ -1,7 +1,7 @@
 from classes.MenuTexts import Menu as menuText
 from classes.Utility import Utilities as util
 from classes.Enemies import Enemy
-from classes.Player import Player
+from classes._Player import Player
 import sys
 
 # Functions for interacting with menus
@@ -75,7 +75,7 @@ def actions_menu(action_list):
         
     
         
-def pause_menu(player):
+def pause_menu(player: Player):
     
     PAUSE = True
     INVENTORY = False

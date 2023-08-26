@@ -1,6 +1,6 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
-from classes.Player import Player
+from classes._Player import Player
 from classes.Database import Database as db
 import re
 import player_action as action
