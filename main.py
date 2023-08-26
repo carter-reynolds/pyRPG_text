@@ -3,33 +3,30 @@
 
 import menu
 import setup
+import player_action as action
 
 # Main game controller - you run this to start playing
 
 def main():
     
-    # Modes/Settings
+    # Modes / States
     RUNNING = True
-    MENU = True
-    SETUP = False
-    PLAY = False
+    MENU    = True
+    SETUP   = False
+    PLAY    = False
 
     while RUNNING:
-        if MENU:
+        while MENU:
+            
             MENU = menu.main_menu()
+            
             if not MENU:
                 while not SETUP:
-                    if not setup.check_for_db():
-                        # if not, create it
+                    if setup.check_for_db() is False:
                         setup.create_db()
-                    else:  
-                        _setup, player = setup.game() # Returns a tuple: (Boolean, type<Player.object>)
-                        
-                        if _setup == True:
-                            SETUP = True
-                        else:
-                            continue 
-                PLAY = True 
+                    ply = setup.setup_player()
+                    SETUP = True
+                    PLAY = True 
             else:
                 continue      
         if PLAY:    
@@ -38,7 +35,10 @@ def main():
                 # if not, create it
                 setup.create_db()
             else:          
-                setup.main_game_loop(player)  
+                while ply.end == False:  
+                    action.prompt(ply)
+                else:
+                    exit() 
 
           
 main()

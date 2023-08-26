@@ -28,7 +28,6 @@ def fight(ply: classes._Player.Player):
     
     enemy = Enemy(random_enemy_type, random_enemy_level)
     
-    PLAYER_RAN_AWAY = False
     PLAYER_ATTACKING = True
     ENEMY_ATTACKING = False
     PLAYER_DEAD = False
@@ -113,7 +112,7 @@ def fight(ply: classes._Player.Player):
                         util.clear_term(2, "You found the following items:\n")
                         
                         ply.gold += enemy.gold
-                        ply.xp += 10 * enemy.level if enemy.level > 0 else 1
+                        ply.xp += 10 * enemy.level if enemy.level > 0 else 10
                         ply.level_check()
                         
                         ENEMY_DEAD = True

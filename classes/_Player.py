@@ -4,9 +4,9 @@ import loot_table
 # This class creates and tracks all of the player's stats and inventory
     
 class Player:
-    def __init__(self, name, role):
+    def __init__(self, name):
         self.name = name
-        self.role = role
+        self.role = ''
         self.end = False
         
         self.gold = 100
@@ -50,8 +50,8 @@ class Player:
         '''
         db.execute(sql, (self.name, self.role, self.level, self.gold, self.location, self.cur_health, self.cur_defense, self.cur_attack, self.weapon, '', '', ''))
         
-    def set_player_stats(self, role):
-        if role == 'Warrior':
+    def set_player_stats(self):
+        if self.role == 'Warrior':
             self.max_health = 120
             self.max_mana = 40
             self.max_stamina = 100
@@ -65,7 +65,7 @@ class Player:
             self.cur_attack = self.max_attack
             self.cur_carry_weight = self.max_carry_weight
             self.weapon = ''     
-        elif role == 'Mage':
+        elif self.role == 'Mage':
             self.max_health = 85
             self.max_mana = 100
             self.max_stamina = 75
@@ -134,21 +134,20 @@ class Player:
             pass
         
     def level_check(self):
-        if self.xp >= 100:
+        if self.xp >= 20:
             self.level += 1
-            self.xp -= 100
             
-            self.max_health += 10
-            self.max_mana += 10
+            self.max_health  += 10
+            self.max_mana    += 10
             self.max_stamina += 10
             self.max_defense += 5
-            self.max_attack += 2
+            self.max_attack  += 2
             
-            self.cur_health = self.max_health
-            self.cur_mana = self.max_mana
+            self.cur_health  = self.max_health
+            self.cur_mana    = self.max_mana
             self.cur_stamina = self.max_stamina
             self.cur_defense = self.max_defense
-            self.cur_attack = self.max_attack
+            self.cur_attack  = self.max_attack
             
             return True
         else:

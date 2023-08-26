@@ -1,6 +1,6 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
-from classes._Player import Player
+import classes._Player as _Player
 from classes.Database import Database as db
 import re
 import player_action as action
@@ -9,13 +9,7 @@ import os
 import loot_table
 import sys
 
-# sets up everything we need for the game
 
-def main_game_loop(player):
-    while player.end == False:  
-        action.prompt(player)
-    else:
-        sys.quit()
         
 # if game.db exists return true else return false
 def check_for_db():
@@ -29,29 +23,36 @@ def create_db():
     db.create_game_tables()
     loot_table.setup_inventory()
     print("Database and tables created!")
+
+def validate_name_input(name):
+    name_clean = re.sub(r'[^a-zA-Z]', '', name)
+    if name_clean != '':
+        return name_clean
+    elif name_clean == '':
+        return False
+    else:
+        return False
     
-    
-        
-def game():
-    
+       
+def setup_player() -> _Player.Player:
+
     util.clear_term(0)
     
-    #### PLAYER NAME SETUP #####
-    is_named = False
-    role = None
+    #### PLAYER CREATION ####
+    NAMED = False
     
-    while is_named == False:
-        
-        util.scroll_text("What is your name?\n", 0.05)
+    while not NAMED:
+
+        util.scroll_text("What is your name?\n", 0.03)
         
         name = input('> ')
-        name_clean = re.sub(r'[^a-zA-Z ]', '', name)
+        name = validate_name_input(name)
         
-        if name_clean != '':
-            player = Player(name_clean, role)
-            is_named = True
-            break
-        elif name_clean == '':
+        if name != False:
+            ply = _Player.Player(name)
+            NAMED = True
+        else:
+            util.scroll_text("Please enter a valid name.\n", 0.05)
             continue
         
     util.clear_term(0)
@@ -70,21 +71,17 @@ def game():
 
     while True:
         if role_choice == '1':
-            role = 'Warrior'
-            player.role = role
-            player.set_player_stats(role)
-            util.scroll_text("You have chosen Warrior -- here are your starting stats:", 0.05)
+            ply.role = 'Warrior'
+            ply.set_player_stats()
+            util.scroll_text("You have chosen Warrior", 0.05)
             util.spacing(2)
-            text.print_player_info(player)
             input("Press Enter/Return to continue")
             break
         elif role_choice == '2':
-            role =  'Mage'
-            player.role = role
-            player.set_player_stats(role)
-            util.scroll_text("You have chosen Mage -- here are your starting stats:", 0.05)
+            ply.role =  'Mage'
+            ply.set_player_stats()
+            util.scroll_text("You have chosen Mage", 0.05)
             util.spacing(2)
-            text.print_player_info(player)
             input("Press Enter/Return to continue")
             break
         else:
@@ -97,8 +94,6 @@ def game():
     util.clear_term(0) 
     text.welcome_speech()
     util.clear_term(0.95)
-    
-    is_set_up = True
-    
-    return (is_set_up, player)           
+
+    return ply     
     

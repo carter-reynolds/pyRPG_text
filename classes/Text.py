@@ -31,28 +31,6 @@ class textFunc:
         
         for speech in welcome_speeches:
             util.scroll_text(speech, 0.05)
-            
-    
-    @staticmethod
-    # TODO: DELETE THIS AND/OR MOVE INTO PLAYER CLASS           
-    def print_player_info(player):
-        
-        player_stats_text = f"""
-        Name: {player.name}
-        Role: {player.role}
-        Health: {player.cur_health}
-        Mana: {player.cur_mana}
-        Attack: {player.cur_attack}
-        Stamina: {player.cur_stamina}
-        Effect: {player.effects}
-        Inventory: {player.inventory}
-        Carry Weight: {player.cur_carry_weight}
-
-        Current Location: {zonemap_dict[player.location]['ZONENAME']} - {player.location}
-        
-        """
-        fixed_player_text = dedent(player_stats_text)
-        print(_color(fixed_player_text, 'green'))
         
     
     @staticmethod
@@ -82,32 +60,35 @@ class textFunc:
     # TODO: MOVE THIS TO THE PLAYER CLASS
     def get_cur_stats(player):
         
-        health = player.cur_health
-        max_health = player.max_health
-        stamina = player.cur_stamina
+        health      = player.cur_health
+        max_health  = player.max_health
+        stamina     = player.cur_stamina
         max_stamina = player.max_stamina
-        mana = player.cur_mana
-        max_mana = player.max_mana
-        level = player.level
-        gold = player.gold
-        name = player.name
-        location = player.location
-        role = player.role
+        mana        = player.cur_mana
+        max_mana    = player.max_mana
+        level       = player.level
+        gold        = player.gold
+        name        = player.name
+        location    = player.location
+        role        = player.role
+        xp          = player.xp
         
-        health_bar = textFunc.print_bar(health, max_health, None, 'red')
+        health_bar  = textFunc.print_bar(health, max_health, None, 'red')
         stamina_bar = textFunc.print_bar(stamina, max_stamina, None, 'green')
-        mana_bar = textFunc.print_bar(mana, max_mana, None, 'blue')
+        mana_bar    = textFunc.print_bar(mana, max_mana, None, 'blue')
         
         player_text_header = f"{name} | {role} | {zonemap_dict[location]['ZONENAME']} | Level: {str(level)}"
         
-        colored_header = _color(player_text_header.upper(), 'red', attrs=['bold'])
-        colored_gold = _color('\u26C1 '+ str(gold), 'yellow')
+        colored_header  = _color(player_text_header.upper(), 'red', attrs=['bold'])
+        colored_gold    = _color('\u26C1 '+ str(gold), 'yellow')
+        colored_xp      = _color('\u2605 ' + str(xp), 'cyan')
 
         print(f"{colored_header}" + "\n\n" + 
               _color(" HEALTH  ", 'white', 'on_red', attrs=['bold']) + f"{health_bar}" + "\n" + 
               _color(" STAMINA ", 'white', 'on_green', attrs=['bold']) + f"{stamina_bar}" + "\n" + 
               _color(" MAGIC   ", 'white', 'on_blue', attrs=['bold']) + f"{mana_bar}" + "\n" + 
-              f"{colored_gold}" + "\n")
+              f"{colored_gold}" + "\n" +
+              f"{colored_xp}" + "\n")
     
     
     @staticmethod

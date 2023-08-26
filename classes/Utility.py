@@ -53,7 +53,7 @@ class Utilities:
     
     
     @staticmethod        
-    def scroll_text(text, speed, delay=0):
+    def scroll_text(text, speed, delay=0.00):
         """Scrolls text across the screen
 
         Args:
