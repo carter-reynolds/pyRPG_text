@@ -1,12 +1,14 @@
 from classes.Text import textFunc as text
 from classes.Utility import Utilities as util
 from dictionaries.world import zonemap_dict, zonemap_meta
+from dictionaries.world_strings import action_strings
 import menu
 import time
 import sys
 import encounter as event
 import fight
 from termcolor import colored as _color
+import random as rand
 
 
 # handles most of the command input and movement for the player
@@ -82,8 +84,20 @@ def check_can_rest(player, action):
     # We don't want the player to get stranded in a zone with no way to recover stamina, so we'll allow them to sit anywhere
     elif action == 'sit':
         message = "You sit down and relax for a moment. Gain 1 stamina."
-        player.alter_stamina(1, 1) # Eventually there will be a modifier for this, but for now it's just 1
-        
+        player.alter_stamina(2*player.level+1, 1) # Eventually there will be a modifier for this, but for now it's just 1
+        if event.encounter_check(player.location):
+            unsafe_strings = action_strings['sitting_unsafe']
+            encounter_str = unsafe_strings[rand.randint(0, len(unsafe_strings) - 1)]
+            util.clear_term()
+            util.scroll_text(encounter_str, 0.05)
+            time.sleep(3)
+            fight.fight(player)
+        else:
+            safe_strings = action_strings['sitting_safe']
+            message = safe_strings[rand.randint(0, len(safe_strings) - 1)]
+            util.clear_term()
+            time.sleep(3)
+
     return message
         
                         
