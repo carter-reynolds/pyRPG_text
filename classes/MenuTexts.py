@@ -1,6 +1,5 @@
 from termcolor import colored as _color
 from tabulate import tabulate
-import pandas as pd
 
 # This class is used to store all the text that is displayed in the menu
 # This class will eventually be used to automatically render windows based on the text and the size of the window
@@ -73,24 +72,14 @@ class Menu:
                 ╰──────────────────────┴────────────╯
                 orders from highest to lowest quantity 
                 and auto hides anything 0 quantity
-                '''                
-                items = []
-                quantities = []
-                
-                for key in df.keys():
-                    items.append(key)
-                    
-                for value in df.values():
-                    quantities.append(value)
-                    
-                df_ = pd.DataFrame({'Item': items, 'Quantity': quantities})
-                df_.sort_values(by=['Quantity'], inplace=True, ascending=False)
-                df_.drop(df_[df_['Quantity'] == 0].index, inplace=True)
-                
-                pretty_inv = tabulate(df_, headers='keys', tablefmt='rounded_grid', showindex=False)
-                        
+                '''  
+
+                items = list(df.keys())
+                quantities = list(df.values())
+                items_and_quantities = zip(items, quantities)
+                items_and_quantities = sorted(items_and_quantities, key=lambda x: x[1], reverse=True)
+                pretty_inv = tabulate(items_and_quantities, headers=['Item', 'Quantity'], tablefmt='rounded_grid', showindex=False)  
                 print(pretty_inv)
-                    
                 print('Enter to return to the game')
 
             

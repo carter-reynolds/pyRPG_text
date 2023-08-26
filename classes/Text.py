@@ -114,18 +114,18 @@ class textFunc:
     # TODO: MOVE THIS TO THE ENEMY CLASS
     def get_enemy_stats(enemy):
             
-            health = enemy.health
-            max_health = enemy.max_health
-            enemy_type = enemy.type
-            level = enemy.level
-            
-            health_bar = textFunc.print_bar(health, max_health, level, 'red')
-            
-            enemy_text_header = f"* {enemy.name} | {types[enemy_type]} | Level: {str(level)} *"
-            
-            colored_header = _color(enemy_text_header.upper(), 'red', attrs=['bold'])
-            
-            print(f"{colored_header}" + "\n\n" + 
-                  f"{health_bar}" + "\n")
+        health = enemy.health
+        max_health = enemy.max_health
+        enemy_type = enemy.type
+        level = enemy.level
+        
+        health_bar = textFunc.print_bar(health, max_health, level, 'red')
+        
+        enemy_text_header = f"* {enemy.name} | {types[enemy_type]} | Level: {str(level)} *"
+        
+        colored_header = _color(enemy_text_header.upper(), 'red', attrs=['bold'])
+        
+        print(f"{colored_header}" + "\n\n" + 
+                f"{health_bar}" + "\n")
             
     # TODO: MAKE SYSTEM FUNCTION TO COLOR CERTAIN TEXT SUCH AS ERRORS VS NORMAL TEXT
